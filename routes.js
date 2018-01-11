@@ -1,14 +1,26 @@
 'use strict';
 
 module.exports = function (app) {
-	var todoList = require('./controllers/taskController');
+    var task = require('./controllers/taskController');
+    app.route('/tasks')
+        .get(task.list_all_tasks)
+        .post(task.create_a_task);
 
-	app.route('/tasks')
-		.get(todoList.list_all_tasks)
-		.post(todoList.create_a_task);
+    app.route('/tasks/:taskId')
+        .get(task.read_a_task)
+        .put(task.update_a_task)
+        .delete(task.delete_a_task);
 
-	app.route('/tasks/:taskId')
-		.get(todoList.read_a_task)
-		.put(todoList.update_a_task)
-		.delete(todoList.delete_a_task);
+    var book = require('./controllers/bookController');
+    app.route('/books')
+        .get(book.getAll)
+        .post(book.create)
+        .put()
+        .delete();
+
+    app.route('/books/:id')
+        .get(book.getOne)
+        .post()
+        .put(book.update)
+        .delete(book.delete);
 };
