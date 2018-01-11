@@ -1,30 +1,41 @@
 'use strict';
 
 module.exports = function (app) {
+    // Task ***************************
     var task = require('./controllers/taskController');
     app.route('/tasks')
-        .get(task.list_all_tasks)
-        .post(task.create_a_task);
+        .get(task.list)
+        .post(task.create);
 
-    app.route('/tasks/:taskId')
-        .get(task.read_a_task)
-        .put(task.update_a_task)
-        .delete(task.delete_a_task);
+    app.route('/tasks/:id')
+        .get(task.read)
+        .put(task.update)
+        .delete(task.delete);
 
+    // Book ***************************
     var book = require('./controllers/bookController');
     app.route('/books')
-        .get(book.getAll)
-        .post(book.create)
-        .put()
-        .delete();
+        .get(book.list)
+        .post(book.create);
 
     app.route('/books/:id')
-        .get(book.getOne)
-        .post()
+        .get(book.read)
         .put(book.update)
         .delete(book.delete);
 
+    // Lorem ***************************
     var lorem = require('./controllers/loremController');
     app.route('/lorems')
-        .get(lorem.list_all_lorems);
+        .get(lorem.list);
+
+    // Product ***************************
+    var product = require('./controllers/productController');
+    app.route('/products')
+        .get(product.list)
+        .post(product.create);
+
+    app.route('/tasks/:id')
+        .get(product.read)
+        .put(product.update)
+        .delete(product.delete);
 };

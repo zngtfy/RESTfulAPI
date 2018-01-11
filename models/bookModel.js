@@ -1,6 +1,6 @@
 'use strict';
 
-var data = {
+var sc = {
     1: {
         name: "Harry Potter và chiếc cốc lửa",
         author: "J.K. Rowling"
@@ -15,4 +15,4 @@ var data = {
     }
 };
 
-module.exports = data;
+module.exports = sc;

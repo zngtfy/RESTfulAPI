@@ -5,6 +5,7 @@ var express = require('express'),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
   task = require('./models/taskModel'),
+  product = require('./models/productModel'),
   bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
@@ -16,9 +17,24 @@ app.use(bodyParser.json());
 var routes = require('./routes');
 routes(app);
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+
+  next();
+});
+
 app.use(function (req, res) {
   res.status(404).send({ url: req.originalUrl + ' not found' })
 });
 
 app.listen(port);
-console.log('todo list RESTful API server started on: ' + port);
+console.log('RESTful API server started on: ' + port);

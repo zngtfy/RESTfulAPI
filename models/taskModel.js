@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 
-var taskSchema = new schema({
+var sc = new schema({
   name: {
     type: String,
     Required: 'Kindly enter the name of the task'
@@ -21,4 +21,4 @@ var taskSchema = new schema({
   }
 });
 
-module.exports = mongoose.model('Tasks', taskSchema);
+module.exports = mongoose.model('Tasks', sc);

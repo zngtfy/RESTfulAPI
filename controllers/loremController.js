@@ -2,7 +2,7 @@
 
 var sqlite3 = require('sqlite3').verbose();
 
-exports.list_all_lorems = function (req, res) {
+exports.list = function (req, res) {
     let db = new sqlite3.Database('chinook.db3', sqlite3.OPEN_READWRITE, (err) => {
         if (err) {
             console.error(err.message);
