@@ -23,4 +23,8 @@ module.exports = function (app) {
         .post()
         .put(book.update)
         .delete(book.delete);
+
+    var lorem = require('./controllers/loremController');
+    app.route('/lorems')
+        .get(lorem.list_all_lorems);
 };
