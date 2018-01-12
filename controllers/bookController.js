@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const m = require('../models/bookModel');
+const m = require("../models/bookModel");
 
 const books = {
     list: function (req, res) {

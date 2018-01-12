@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const mongoose = require('mongoose');
-const m = mongoose.model('Task');
+const mongoose = require("mongoose");
+const m = mongoose.model("Task");
 
 exports.list = function (req, res) {
   m.find({}, function (err, task) {
@@ -45,6 +45,6 @@ exports.delete = function (req, res) {
     if (err) {
       res.send(err);
     }
-    res.json({ message: 'Task successfully deleted' });
+    res.json({ message: "Task successfully deleted" });
   });
 };

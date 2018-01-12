@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
 const express = require("express");
 const router = express.Router();
-const fs = require('fs');
-const multer = require('multer');
-const auth = require('../middleware/checkAuth');
-const ct = require('../controllers/productController');
+const fs = require("fs");
+const multer = require("multer");
+const auth = require("../middleware/checkAuth");
+const ct = require("../controllers/productController");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const dir = './uploads';
+    const dir = "./uploads";
     fs.exists(dir, (exists) => {
       if (exists) {
         cb(null, dir);
@@ -20,14 +20,14 @@ const storage = multer.diskStorage({
     });
   },
   filename: function (req, file, cb) {
-    const t = '_';
+    const t = "_";
     cb(null, t + file.originalname);
   }
 });
 
 const filter = (req, file, cb) => {
   // Reject a file
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
     cb(null, true);
   } else {
     cb(null, false);
@@ -43,7 +43,7 @@ const upload = multer({
 });
 
 router.get("/", ct.list);
-router.post("/", auth, upload.single('productImage'), ct.create);
+router.post("/", auth, upload.single("productImage"), ct.create);
 
 router.get("/:id", ct.read);
 router.patch("/:id", auth, ct.update);

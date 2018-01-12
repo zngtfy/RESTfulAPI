@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const mongoose = require("mongoose");
 const m = require("../models/productModel");
@@ -23,7 +23,7 @@ exports.list = (req, res, next) => {
     if (docs.length >= 0) {
       res.status(200).json(response);
     } else {
-      res.status(404).json({ message: 'No entries found' });
+      res.status(404).json({ message: "No entries found" });
     }
   }).catch(err => {
     console.log(err);

@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const sc = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -13,4 +13,4 @@ const sc = mongoose.Schema({
     password: { type: String, required: true }
 });
 
-module.exports = mongoose.model('User', sc);
+module.exports = mongoose.model("User", sc);

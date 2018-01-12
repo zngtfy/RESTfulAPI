@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
 const sc = new schema({
   name: {
     type: String,
-    Required: 'Kindly enter the name of the task'
+    Required: "Kindly enter the name of the task"
   },
   created_date: {
     type: Date,
@@ -15,10 +15,10 @@ const sc = new schema({
   status: {
     type: [{
       type: String,
-      enum: ['pending', 'ongoing', 'completed']
+      enum: ["pending", "ongoing", "completed"]
     }],
-    default: ['pending']
+    default: ["pending"]
   }
 });
 
-module.exports = mongoose.model('Task', sc);
+module.exports = mongoose.model("Task", sc);
