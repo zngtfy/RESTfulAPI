@@ -3,7 +3,6 @@
 const express = require("express");
 const router = express.Router();
 const fs = require('fs');
-const dateFormat = require('dateFormat');
 const multer = require('multer');
 const auth = require('../middleware/checkAuth');
 const ct = require('../controllers/productController');
