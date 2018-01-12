@@ -1,7 +1,7 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var m = mongoose.model('Tasks');
+const mongoose = require('mongoose');
+const m = mongoose.model('Task');
 
 exports.list = function (req, res) {
   m.find({}, function (err, task) {
@@ -13,8 +13,8 @@ exports.list = function (req, res) {
 };
 
 exports.create = function (req, res) {
-  var new_task = new m(req.body);
-  new_task.save(function (err, task) {
+  const t = new m(req.body);
+  t.save(function (err, task) {
     if (err) {
       res.send(err);
     }

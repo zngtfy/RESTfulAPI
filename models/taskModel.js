@@ -1,9 +1,9 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const schema = mongoose.Schema;
 
-var sc = new schema({
+const sc = new schema({
   name: {
     type: String,
     Required: 'Kindly enter the name of the task'
@@ -21,4 +21,4 @@ var sc = new schema({
   }
 });
 
-module.exports = mongoose.model('Tasks', sc);
+module.exports = mongoose.model('Task', sc);

@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = {
+const sc = {
     1: {
         name: "Harry Potter và chiếc cốc lửa",
         author: "J.K. Rowling"

@@ -2,7 +2,7 @@
 
 module.exports = function (app) {
     // Task ***************************
-    var task = require('./controllers/taskController');
+    const task = require('./controllers/taskController');
     app.route('/tasks')
         .get(task.list)
         .post(task.create);
@@ -13,7 +13,7 @@ module.exports = function (app) {
         .delete(task.delete);
 
     // Book ***************************
-    var book = require('./controllers/bookController');
+    const book = require('./controllers/bookController');
     app.route('/books')
         .get(book.list)
         .post(book.create);
@@ -24,18 +24,7 @@ module.exports = function (app) {
         .delete(book.delete);
 
     // Lorem ***************************
-    var lorem = require('./controllers/loremController');
+    const lorem = require('./controllers/loremController');
     app.route('/lorems')
         .get(lorem.list);
-
-    // Product ***************************
-    var product = require('./controllers/productController');
-    app.route('/products')
-        .get(product.list)
-        .post(product.create);
-
-    app.route('/products/:id')
-        .get(product.read)
-        .patch(product.update)
-        .delete(product.delete);
 };

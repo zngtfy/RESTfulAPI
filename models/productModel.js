@@ -1,12 +1,12 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-const sc = schema({
-    _id: schema.Types.ObjectId,
-    name: String,
-    price: Number
+const sc = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    name: { type: String, required: true },
+    price: { type: Number, required: true },
+    productImage: { type: String, required: true }
 });
 
-module.exports = mongoose.model('Products', sc);
+module.exports = mongoose.model('Product', sc);
