@@ -12,8 +12,7 @@ const productRoutes = require("./routes/productRoute");
 const orderRoutes = require("./routes/orderRoute");
 const userRoutes = require('./routes/userRoute');
 
-const cnn = 'mongodb://node-shop:' + process.env.MONGO_ATLAS_PW
-  + '@node-rest-shop-shard-00-00-238ix.mongodb.net:27017,node-rest-shop-shard-00-01-238ix.mongodb.net:27017,node-rest-shop-shard-00-02-238ix.mongodb.net:27017/test?ssl=true&replicaSet=node-rest-shop-shard-0&authSource=admin';
+const cnn = 'mongodb://node-shop:node-shop@node-rest-shop-shard-00-00-238ix.mongodb.net:27017,node-rest-shop-shard-00-01-238ix.mongodb.net:27017,node-rest-shop-shard-00-02-238ix.mongodb.net:27017/test?ssl=true&replicaSet=node-rest-shop-shard-0&authSource=admin';
 mongoose.Promise = global.Promise;
 mongoose.connect(cnn);
 
