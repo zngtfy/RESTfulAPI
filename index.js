@@ -17,6 +17,7 @@ const cnn = 'mongodb://node-shop:' + process.env.MONGO_ATLAS_PW
 mongoose.Promise = global.Promise;
 mongoose.connect(cnn);
 
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

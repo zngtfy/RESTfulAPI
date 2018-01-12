@@ -2,16 +2,27 @@
 
 const express = require("express");
 const router = express.Router();
+const fs = require('fs');
+const dateFormat = require('dateFormat');
 const multer = require('multer');
 const auth = require('../middleware/checkAuth');
 const ct = require('../controllers/productController');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads/');
+    const dir = './uploads';
+    fs.exists(dir, (exists) => {
+      if (exists) {
+        cb(null, dir);
+      }
+      else {
+        fs.mkdir(dir, err => cb(err, dir));
+      }
+    });
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
+    const t = dateFormat(new Date(), "yyyyddmmHHMMss_");
+    cb(null, t + file.originalname);
   }
 });
 
