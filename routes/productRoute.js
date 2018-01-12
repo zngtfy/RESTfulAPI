@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
     });
   },
   filename: function (req, file, cb) {
-    const t = dateFormat(new Date(), "yyyyddmmHHMMss_");
+    const t = '_';
     cb(null, t + file.originalname);
   }
 });
