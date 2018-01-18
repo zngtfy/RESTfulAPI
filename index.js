@@ -11,6 +11,7 @@ const express = require("express"),
 const productRoutes = require("./routes/productRoute");
 const orderRoutes = require("./routes/orderRoute");
 const userRoutes = require("./routes/userRoute");
+const dashboardRoutes = require("./routes/dashboardRoute");
 
 const cnn = "mongodb://node-shop:" + process.env.MONGO_ATLAS_PW
   + "@node-rest-shop-shard-00-00-238ix.mongodb.net:27017,node-rest-shop-shard-00-01-238ix.mongodb.net:27017,node-rest-shop-shard-00-02-238ix.mongodb.net:27017/test?ssl=true&replicaSet=node-rest-shop-shard-0&authSource=admin";
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 app.use("/user", userRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 const routes = require("./routes");
 routes(app);
