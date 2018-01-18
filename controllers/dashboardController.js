@@ -10,7 +10,7 @@ exports.list_myorders = (req, res, next) => {
   mMyOrder.find().select(f).exec().then(docs => {
     const response = {
       count: docs.length,
-      products: docs.map(doc => {
+      myorders: docs.map(doc => {
         return {
           OrderNo: doc.OrderNo,
           Company: doc.Company,
@@ -23,7 +23,7 @@ exports.list_myorders = (req, res, next) => {
           _id: doc._id,
           request: {
             type: "GET",
-            url: "rest-ful-api.herokuapp.com/myorders/" + doc._id
+            url: "rest-ful-api.herokuapp.com/dashboard/myorders/" + doc._id
           }
         };
       })
@@ -44,7 +44,7 @@ exports.list_mytrades = (req, res, next) => {
   mMyTrade.find().select(f).exec().then(docs => {
     const response = {
       count: docs.length,
-      products: docs.map(doc => {
+      mytrades: docs.map(doc => {
         return {
           TradeNo: doc.TradeNo,
           Company: doc.Company,
@@ -58,7 +58,7 @@ exports.list_mytrades = (req, res, next) => {
           _id: doc._id,
           request: {
             type: "GET",
-            url: "rest-ful-api.herokuapp.com/mytrades/" + doc._id
+            url: "rest-ful-api.herokuapp.com/dashboard/mytrades/" + doc._id
           }
         };
       })
@@ -79,7 +79,7 @@ exports.list_myassets = (req, res, next) => {
   mMyAsset.find().select(f).exec().then(docs => {
     const response = {
       count: docs.length,
-      products: docs.map(doc => {
+      myassets: docs.map(doc => {
         return {
           Ticker: doc.Ticker,
           AssetName: doc.AssetName,
@@ -92,7 +92,7 @@ exports.list_myassets = (req, res, next) => {
           _id: doc._id,
           request: {
             type: "GET",
-            url: "rest-ful-api.herokuapp.com/myassets/" + doc._id
+            url: "rest-ful-api.herokuapp.com/dashboard/myassets/" + doc._id
           }
         };
       })
