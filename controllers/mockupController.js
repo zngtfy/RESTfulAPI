@@ -1,6 +1,6 @@
 "use strict";
 
-exports.list_myorders = (req, res, next) => {
+exports.list_my_orders = (req, res, next) => {
   const response = {
     "count": 1,
     "myorders": [
@@ -20,7 +20,7 @@ exports.list_myorders = (req, res, next) => {
   res.status(200).json(response);
 };
 
-exports.list_mytrades = (req, res, next) => {
+exports.list_my_trades = (req, res, next) => {
   const response = {
     "count": 1,
     "mytrades": [
@@ -40,7 +40,7 @@ exports.list_mytrades = (req, res, next) => {
   res.status(200).json(response);
 };
 
-exports.list_myassets = (req, res, next) => {
+exports.list_my_assets = (req, res, next) => {
   const response = {
     "count": 1,
     "myassets": [
@@ -59,7 +59,7 @@ exports.list_myassets = (req, res, next) => {
   res.status(200).json(response);
 };
 
-exports.list_tradingboards = (req, res, next) => {
+exports.list_trading_boards = (req, res, next) => {
   const response = {
     "count": 2,
     "tradingboards": [
@@ -86,7 +86,25 @@ exports.list_tradingboards = (req, res, next) => {
   res.status(200).json(response);
 };
 
-exports.list_orderstatus = (req, res, next) => {
+exports.list_trading_histories = (req, res, next) => {
+  const response = {
+    "count": 1,
+    "tradinghistories": [
+      {
+        "Name": "Honey Bee",
+        "Price": 4,
+        "Amount": 25,
+        "Value": 100,
+        "Currency": "USD",
+        "Status": "Settled",
+        "SubmittedOn": "2018-05-01T09:40:00.000Z"
+      }
+    ]
+  };
+  res.status(200).json(response);
+};
+
+exports.list_order_status = (req, res, next) => {
   const response = {
     "count": 4,
     "orderstatus": [
@@ -111,7 +129,7 @@ exports.list_orderstatus = (req, res, next) => {
   res.status(200).json(response);
 };
 
-exports.list_tradestatus = (req, res, next) => {
+exports.list_trade_status = (req, res, next) => {
   const response = {
     "count": 8,
     "tradestatus": [
@@ -146,6 +164,23 @@ exports.list_tradestatus = (req, res, next) => {
       {
         "Key": "8",
         "Value": "Cancelled"
+      }
+    ]
+  };
+  res.status(200).json(response);
+};
+
+exports.list_trade_history_status = (req, res, next) => {
+  const response = {
+    "count": 8,
+    "tradestatus": [
+      {
+        "Key": "1",
+        "Value": "Pending"
+      },
+      {
+        "Key": "2",
+        "Value": "Settled"
       }
     ]
   };
