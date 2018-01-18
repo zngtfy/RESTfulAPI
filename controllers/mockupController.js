@@ -7,6 +7,7 @@ exports.list_myorders = (req, res, next) => {
       {
         "OrderNo": "00001",
         "Company": "CapBridge Syndicate",
+        "OrderedOn": "2018-01-29T17:00:00.000Z",
         "ExpiresOn": "2018-01-29T17:00:00.000Z",
         "Price": 4,
         "Amount": 25,
@@ -79,6 +80,72 @@ exports.list_tradingboards = (req, res, next) => {
         "HighestBid": 2,
         "VWAP": "-",
         "LowestAsk": "No no"
+      }
+    ]
+  };
+  res.status(200).json(response);
+};
+
+exports.list_orderstatus = (req, res, next) => {
+  const response = {
+    "count": 4,
+    "orderstatus": [
+      {
+        "Key": "1",
+        "Value": "Open"
+      },
+      {
+        "Key": "2",
+        "Value": "Matched"
+      },
+      {
+        "Key": "3",
+        "Value": "Cancelled"
+      },
+      {
+        "Key": "4",
+        "Value": "Unsuccessful"
+      },
+    ]
+  };
+  res.status(200).json(response);
+};
+
+exports.list_tradestatus = (req, res, next) => {
+  const response = {
+    "count": 8,
+    "tradestatus": [
+      {
+        "Key": "1",
+        "Value": "Pending"
+      },
+      {
+        "Key": "2",
+        "Value": "Escrow Successful"
+      },
+      {
+        "Key": "3",
+        "Value": "Escrow Unsuccessful"
+      },
+      {
+        "Key": "4",
+        "Value": "Trustee Notified"
+      },
+      {
+        "Key": "5",
+        "Value": "Units transferred"
+      },
+      {
+        "Key": "6",
+        "Value": "Funds to be released"
+      },
+      {
+        "Key": "7",
+        "Value": "Funds released"
+      },
+      {
+        "Key": "8",
+        "Value": "Cancelled"
       }
     ]
   };
