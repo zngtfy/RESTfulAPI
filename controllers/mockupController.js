@@ -3,7 +3,7 @@
 exports.list_my_orders = (req, res, next) => {
   const response = {
     "count": 1,
-    "myorders": [
+    "data": [
       {
         "OrderNo": "00001",
         "Company": "CapBridge Syndicate",
@@ -23,7 +23,7 @@ exports.list_my_orders = (req, res, next) => {
 exports.list_my_trades = (req, res, next) => {
   const response = {
     "count": 1,
-    "mytrades": [
+    "data": [
       {
         "TradeNo": "00001",
         "Company": "CapBridge Syndicate",
@@ -43,7 +43,7 @@ exports.list_my_trades = (req, res, next) => {
 exports.list_my_assets = (req, res, next) => {
   const response = {
     "count": 1,
-    "myassets": [
+    "data": [
       {
         "Ticker": "AA-23",
         "AssetName": "CapBridge Syndicate",
@@ -62,7 +62,7 @@ exports.list_my_assets = (req, res, next) => {
 exports.list_trading_boards = (req, res, next) => {
   const response = {
     "count": 2,
-    "tradingboards": [
+    "data": [
       {
         "Company": "CapBridge Syndicate",
         "LastPrice": 4,
@@ -89,7 +89,7 @@ exports.list_trading_boards = (req, res, next) => {
 exports.list_trading_histories = (req, res, next) => {
   const response = {
     "count": 1,
-    "tradinghistories": [
+    "data": [
       {
         "Name": "Honey Bee",
         "Price": 4,
@@ -107,7 +107,7 @@ exports.list_trading_histories = (req, res, next) => {
 exports.list_order_status = (req, res, next) => {
   const response = {
     "count": 4,
-    "orderstatus": [
+    "data": [
       {
         "Key": "1",
         "Value": "Open"
@@ -132,7 +132,7 @@ exports.list_order_status = (req, res, next) => {
 exports.list_trade_status = (req, res, next) => {
   const response = {
     "count": 8,
-    "tradestatus": [
+    "data": [
       {
         "Key": "1",
         "Value": "Pending"
@@ -172,8 +172,8 @@ exports.list_trade_status = (req, res, next) => {
 
 exports.list_trade_history_status = (req, res, next) => {
   const response = {
-    "count": 8,
-    "tradestatus": [
+    "count": 2,
+    "data": [
       {
         "Key": "1",
         "Value": "Pending"

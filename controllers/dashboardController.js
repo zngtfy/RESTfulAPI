@@ -10,10 +10,11 @@ exports.list_myorders = (req, res, next) => {
   mMyOrder.find().select(f).exec().then(docs => {
     const response = {
       count: docs.length,
-      myorders: docs.map(doc => {
+      data: docs.map(doc => {
         return {
           OrderNo: doc.OrderNo,
           Company: doc.Company,
+          OrderedOn: doc.OrderedOn,
           ExpiresOn: doc.ExpiresOn,
           Price: doc.Price,
           Amount: doc.Amount,
@@ -44,7 +45,7 @@ exports.list_mytrades = (req, res, next) => {
   mMyTrade.find().select(f).exec().then(docs => {
     const response = {
       count: docs.length,
-      mytrades: docs.map(doc => {
+      data: docs.map(doc => {
         return {
           TradeNo: doc.TradeNo,
           Company: doc.Company,
@@ -79,7 +80,7 @@ exports.list_myassets = (req, res, next) => {
   mMyAsset.find().select(f).exec().then(docs => {
     const response = {
       count: docs.length,
-      myassets: docs.map(doc => {
+      data: docs.map(doc => {
         return {
           Ticker: doc.Ticker,
           AssetName: doc.AssetName,
