@@ -21,9 +21,6 @@ app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const routes = require("./routes");
-routes(app);
-
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -41,6 +38,9 @@ app.use((req, res, next) => {
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 app.use("/user", userRoutes);
+
+const routes = require("./routes");
+routes(app);
 
 app.use(function (req, res) {
   res.status(404).send({ url: req.originalUrl + " not found" })
