@@ -16,8 +16,14 @@ exports.signup = (req, res, next) => {
         } else {
           const user = new m({
             _id: new mongoose.Types.ObjectId(),
+            first_name: req.body.firstName,
+            last_name: req.body.lastName,
             email: req.body.email,
-            password: hash
+            password: hash,
+            phone_no: req.body.phoneNo,
+            country_code: req.body.countryCode,
+            company: req.body.company,
+            terms_conditions: req.body.termsConditions
           });
           user.save().then(result => {
             console.log(result);
