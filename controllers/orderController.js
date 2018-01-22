@@ -2,56 +2,74 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/orderModel");
-const mp = require("../models/productModel");
+const sl = "order_no company ordered_on expires_on price amount value currency status _id";
 
 exports.list = (req, res, next) => {
-  m.find().select("product quantity _id").populate("product", "name").exec().then(docs => {
-    res.status(200).json({
+  m.find().select(sl).exec().then(docs => {
+    const response = {
       count: docs.length,
-      orders: docs.map(doc => {
+      data: docs.map(doc => {
         return {
+          order_no: doc.order_no,
+          company: doc.company,
+          ordered_on: doc.ordered_on,
+          expires_on: doc.expires_on,
+          price: doc.price,
+          amount: doc.amount,
+          value: doc.value,
+          currency: doc.currency,
+          status: doc.status,
           _id: doc._id,
-          product: doc.product,
-          quantity: doc.quantity,
           request: {
             type: "GET",
-            url: "http://localhost:3000/orders/" + doc._id
+            url: process.env.BASE_URL + "orders/" + doc._id
           }
         };
       })
-    });
+    };
+    if (docs.length >= 0) {
+      res.status(200).json(response);
+    } else {
+      res.status(404).json({ message: "No entries found" });
+    }
   }).catch(err => {
+    console.log(err);
     res.status(500).json({ error: err });
   });
 };
 
 exports.create = (req, res, next) => {
-  mp.findById(req.body.productId).then(product => {
-    if (!product) {
-      return res.status(404).json({
-        message: "Product not found"
-      });
-    }
+  const t = new m({
+    _id: new mongoose.Types.ObjectId(),
+    order_no: req.body.orderNo,
+    company: req.body.company,
+    ordered_on: req.body.orderedOn,
+    expires_on: req.body.expiresOn,
+    price: req.body.price,
+    amount: req.body.amount,
+    value: req.body.value,
+    currency: req.body.currency,
+    status: req.body.status
+  });
 
-    const t = new m({
-      _id: mongoose.Types.ObjectId(),
-      quantity: req.body.quantity,
-      product: req.body.productId
-    });
-
-    return t.save();
-  }).then(result => {
-    console.log(result);
+  t.save().then(doc => {
     res.status(201).json({
-      message: "Order stored",
-      createdOrder: {
-        _id: result._id,
-        product: result.product,
-        quantity: result.quantity
-      },
-      request: {
-        type: "GET",
-        url: "http://localhost:3000/orders/" + result._id
+      message: "Created successfully",
+      data: {
+        order_no: doc.order_no,
+        company: doc.company,
+        ordered_on: doc.ordered_on,
+        expires_on: doc.expires_on,
+        price: doc.price,
+        amount: doc.amount,
+        value: doc.value,
+        currency: doc.currency,
+        status: doc.status,
+        _id: doc._id,
+        request: {
+          type: "GET",
+          url: process.env.BASE_URL + "orders/" + doc._id
+        }
       }
     });
   }).catch(err => {
@@ -61,33 +79,61 @@ exports.create = (req, res, next) => {
 };
 
 exports.read = (req, res, next) => {
-  m.findById(req.params.id).populate("product").exec().then(order => {
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
+  const id = req.params.id;
+
+  m.findById(id).select(sl).exec().then(doc => {
+    if (doc) {
+      res.status(200).json({
+        data: doc,
+        request: {
+          type: "GET",
+          url: process.env.BASE_URL + "orders"
+        }
+      });
+    } else {
+      res.status(404).json({ message: "No valid entry found for provided ID" });
     }
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};
+
+exports.update = (req, res, next) => {
+  const id = req.params.id;
+  const updateOps = {};
+
+  for (const ops of req.body) {
+    updateOps[ops.propName] = ops.value;
+  }
+
+  m.update({ _id: id }, { $set: updateOps }).exec().then(result => {
     res.status(200).json({
-      order: order,
+      message: "Data updated",
       request: {
         type: "GET",
-        url: "http://localhost:3000/orders"
+        url: process.env.BASE_URL + "orders/" + id
       }
     });
   }).catch(err => {
+    console.log(err);
     res.status(500).json({ error: err });
   });
 };
 
 exports.delete = (req, res, next) => {
-  m.remove({ _id: req.params.id }).exec().then(result => {
+  const id = req.params.id;
+
+  m.remove({ _id: id }).exec().then(result => {
     res.status(200).json({
-      message: "Order deleted",
+      message: "Data deleted",
       request: {
-        type: "POST",
-        url: "http://localhost:3000/orders",
-        body: { productId: "ID", quantity: "Number" }
+        type: "GET",
+        url: process.env.BASE_URL + "orders"
       }
     });
   }).catch(err => {
+    console.log(err);
     res.status(500).json({ error: err });
   });
 };

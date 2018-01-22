@@ -3,16 +3,9 @@
 const express = require("express"),
   app = express(),
   port = process.env.PORT || 3000,
-  task = require("./models/taskModel"),
   morgan = require("morgan"),
   mongoose = require("mongoose"),
   bodyParser = require("body-parser");
-
-const productRoutes = require("./routes/productRoute");
-const orderRoutes = require("./routes/orderRoute");
-const userRoutes = require("./routes/userRoute");
-const dashboardRoutes = require("./routes/dashboardRoute");
-const mockupRoutes = require("./routes/mockupRoute");
 
 const cnn = "mongodb://node-shop:" + process.env.MONGO_ATLAS_PW
   + "@node-rest-shop-shard-00-00-238ix.mongodb.net:27017,node-rest-shop-shard-00-01-238ix.mongodb.net:27017,node-rest-shop-shard-00-02-238ix.mongodb.net:27017/test?ssl=true&replicaSet=node-rest-shop-shard-0&authSource=admin";
@@ -36,15 +29,14 @@ app.use((req, res, next) => {
   next();
 });
 
+const tradeRoutes = require("./routes/tradeRoute");
+const orderRoutes = require("./routes/orderRoute");
+const userRoutes = require("./routes/userRoute");
+
 // Routes which should handle requests
-app.use("/products", productRoutes);
+app.use("/trades", tradeRoutes);
 app.use("/orders", orderRoutes);
 app.use("/user", userRoutes);
-app.use("/dashboard", dashboardRoutes);
-app.use("/mockup", mockupRoutes);
-
-const routes = require("./routes");
-routes(app);
 
 app.use(function (req, res) {
   res.status(404).send({ url: req.originalUrl + " not found" })

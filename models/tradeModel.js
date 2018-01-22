@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 
 const sc = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    order_no: { type: String, required: true },
+    trade_no: { type: String, required: true },
     company: { type: String, required: true },
-    ordered_on: { type: Date, required: true },
-    expires_on: { type: Date, required: true },
+    submitted_on: { type: Date, required: true },
+    trade_date: { type: Date, required: true },
     price: { type: Number, required: true },
     amount: { type: Number, required: true },
     value: { type: Number, required: true },
@@ -15,4 +15,4 @@ const sc = mongoose.Schema({
     status: { type: String, required: true }
 });
 
-module.exports = mongoose.model("Order", sc);
+module.exports = mongoose.model("Trade", sc);

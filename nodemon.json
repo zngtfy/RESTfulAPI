@@ -1,6 +1,7 @@
 {
     "env": {
         "MONGO_ATLAS_PW": "node-shop",
-        "JWT_KEY": "secret"
+        "JWT_KEY": "secret",
+        "BASE_URL": "http://localhost:3000/"
     }
 }

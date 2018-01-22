@@ -1,21 +1,28 @@
 "use strict";
 
 const mongoose = require("mongoose");
-const m = require("../models/productModel");
+const m = require("../models/tradeModel");
+const sl = "trade_no company submitted_on trade_date price amount value currency status _id";
 
 exports.list = (req, res, next) => {
-  m.find().select("name price _id productImage").exec().then(docs => {
+  m.find().select(sl).exec().then(docs => {
     const response = {
       count: docs.length,
-      products: docs.map(doc => {
+      data: docs.map(doc => {
         return {
-          name: doc.name,
+          trade_no: doc.trade_no,
+          company: doc.company,
+          submitted_on: doc.submitted_on,
+          trade_date: doc.trade_date,
           price: doc.price,
-          productImage: doc.productImage,
+          amount: doc.amount,
+          value: doc.value,
+          currency: doc.currency,
+          status: doc.status,
           _id: doc._id,
           request: {
             type: "GET",
-            url: "http://localhost:3000/products/" + doc._id
+            url: process.env.BASE_URL + "trades/" + doc._id
           }
         };
       })
@@ -34,22 +41,34 @@ exports.list = (req, res, next) => {
 exports.create = (req, res, next) => {
   const t = new m({
     _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
+    trade_no: req.body.tradeNo,
+    company: req.body.company,
+    submitted_on: req.body.submittedOn,
+    trade_date: req.body.tradeDate,
     price: req.body.price,
-    productImage: req.file.path
+    amount: req.body.amount,
+    value: req.body.value,
+    currency: req.body.currency,
+    status: req.body.status
   });
 
-  t.save().then(result => {
-    console.log(result);
+  t.save().then(doc => {
     res.status(201).json({
-      message: "Created product successfully",
-      createdProduct: {
-        name: result.name,
-        price: result.price,
-        _id: result._id,
+      message: "Created successfully",
+      data: {
+        trade_no: doc.trade_no,
+        company: doc.company,
+        submitted_on: doc.submitted_on,
+        trade_date: doc.trade_date,
+        price: doc.price,
+        amount: doc.amount,
+        value: doc.value,
+        currency: doc.currency,
+        status: doc.status,
+        _id: doc._id,
         request: {
           type: "GET",
-          url: "http://localhost:3000/products/" + result._id
+          url: process.env.BASE_URL + "trades/" + doc._id
         }
       }
     });
@@ -62,14 +81,13 @@ exports.create = (req, res, next) => {
 exports.read = (req, res, next) => {
   const id = req.params.id;
 
-  m.findById(id).select("name price _id productImage").exec().then(doc => {
-    console.log("From database", doc);
+  m.findById(id).select(sl).exec().then(doc => {
     if (doc) {
       res.status(200).json({
-        product: doc,
+        data: doc,
         request: {
           type: "GET",
-          url: "http://localhost:3000/products"
+          url: process.env.BASE_URL + "trades"
         }
       });
     } else {
@@ -91,10 +109,10 @@ exports.update = (req, res, next) => {
 
   m.update({ _id: id }, { $set: updateOps }).exec().then(result => {
     res.status(200).json({
-      message: "Product updated",
+      message: "Data updated",
       request: {
         type: "GET",
-        url: "http://localhost:3000/products/" + id
+        url: process.env.BASE_URL + "trades/" + id
       }
     });
   }).catch(err => {
@@ -108,11 +126,10 @@ exports.delete = (req, res, next) => {
 
   m.remove({ _id: id }).exec().then(result => {
     res.status(200).json({
-      message: "Product deleted",
+      message: "Data deleted",
       request: {
-        type: "POST",
-        url: "http://localhost:3000/products",
-        body: { name: "String", price: "Number" }
+        type: "GET",
+        url: process.env.BASE_URL + "trades"
       }
     });
   }).catch(err => {
