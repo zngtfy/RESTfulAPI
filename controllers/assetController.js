@@ -56,6 +56,7 @@ exports.create = (req, res, next) => {
       data: {
         ticker: doc.ticker,
         asset_name: doc.asset_name,
+        ave_traded_price: doc.ave_traded_price,
         last_price: doc.last_price,
         volume_held: doc.volume_held,
         market_value: doc.market_value,
