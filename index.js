@@ -33,12 +33,14 @@ const tradeRoutes = require("./routes/tradeRoute");
 const orderRoutes = require("./routes/orderRoute");
 const companyRoutes = require("./routes/companyRoute");
 const userRoutes = require("./routes/userRoute");
+const mockupRoutes = require("./routes/mockupRoute");
 
 // Routes which should handle requests
 app.use("/trades", tradeRoutes);
 app.use("/orders", orderRoutes);
 app.use("/companies", companyRoutes);
 app.use("/user", userRoutes);
+app.use("/mockup", mockupRoutes);
 
 app.use(function (req, res) {
   res.status(404).send({ url: req.originalUrl + " not found" })
