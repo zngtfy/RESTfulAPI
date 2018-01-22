@@ -7,7 +7,7 @@ const sc = mongoose.Schema({
     owner: { type: String, required: true },
     email: { type: String, required: true },
     number: { type: Number, required: true },
-    currency: { type: Number, required: true },
+    currency: { type: String, required: true },
     price: { type: Number, required: true },
     traded_date: { type: Date, required: true }
 });
