@@ -12,6 +12,7 @@ exports.list = (req, res, next) => {
         return {
           ticker: doc.ticker,
           asset_name: doc.asset_name,
+          ave_traded_price: doc.ave_traded_price,
           last_price: doc.last_price,
           volume_held: doc.volume_held,
           market_value: doc.market_value,
@@ -41,6 +42,7 @@ exports.create = (req, res, next) => {
     _id: new mongoose.Types.ObjectId(),
     ticker: req.body.ticker,
     asset_name: req.body.assetName,
+    ave_traded_price: req.body.aveTradedPrice,
     last_price: req.body.lastPrice,
     volume_held: req.body.volumeHeld,
     market_value: req.body.marketValue,
