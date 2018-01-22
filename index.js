@@ -31,11 +31,13 @@ app.use((req, res, next) => {
 
 const tradeRoutes = require("./routes/tradeRoute");
 const orderRoutes = require("./routes/orderRoute");
+const companyRoutes = require("./routes/companyRoute");
 const userRoutes = require("./routes/userRoute");
 
 // Routes which should handle requests
 app.use("/trades", tradeRoutes);
 app.use("/orders", orderRoutes);
+app.use("/companies", companyRoutes);
 app.use("/user", userRoutes);
 
 app.use(function (req, res) {
