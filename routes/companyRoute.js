@@ -42,10 +42,10 @@ const upload = multer({
     fileFilter: filter
 });
 
-router.get("/", ct.list);
-router.post("/", auth, upload.single("logo"), ct.create);
+router.get("/", auth, ct.list);
+router.post("/", auth, ct.create);
 
-router.get("/:id", ct.read);
+router.get("/:id", auth, ct.read);
 router.patch("/:id", auth, ct.update);
 router.delete("/:id", auth, ct.delete);
 

@@ -4,8 +4,41 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const m = require("../models/userModel");
+const sl = "first_name last_name email phone_no country_code company terms_conditions _id";
 
-exports.signup = (req, res, next) => {
+exports.list = (req, res, next) => {
+  m.find().select(sl).exec().then(docs => {
+    const response = {
+      count: docs.length,
+      data: docs.map(doc => {
+        return {
+          first_name: doc.first_name,
+          last_name: doc.last_name,
+          email: doc.email,
+          phone_no: doc.phone_no,
+          country_code: doc.country_code,
+          company: doc.company,
+          terms_conditions: doc.terms_conditions,
+          _id: doc._id,
+          request: {
+            type: "GET",
+            url: process.env.BASE_URL + "users/" + doc._id
+          }
+        };
+      })
+    };
+    if (docs.length >= 0) {
+      res.status(200).json(response);
+    } else {
+      res.status(404).json({ message: "No entries found" });
+    }
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};
+
+exports.create = (req, res, next) => {
   m.find({ email: req.body.email }).exec().then(user => {
     if (user.length >= 1) {
       return res.status(409).json({ message: "Mail exists" });
@@ -14,7 +47,7 @@ exports.signup = (req, res, next) => {
         if (err) {
           return res.status(500).json({ error: err });
         } else {
-          const user = new m({
+          const t = new m({
             _id: new mongoose.Types.ObjectId(),
             first_name: req.body.firstName,
             last_name: req.body.lastName,
@@ -25,9 +58,8 @@ exports.signup = (req, res, next) => {
             company: req.body.company,
             terms_conditions: req.body.termsConditions
           });
-          user.save().then(result => {
-            console.log(result);
-            res.status(201).json({ message: "User created" });
+          t.save().then(doc => {
+            res.status(201).json({ message: "Data created" });
           }).catch(err => {
             console.log(err);
             res.status(500).json({ error: err });
@@ -38,21 +70,82 @@ exports.signup = (req, res, next) => {
   });
 };
 
+exports.read = (req, res, next) => {
+  const id = req.params.id;
+
+  m.findById(id).select(sl).exec().then(doc => {
+    if (doc) {
+      res.status(200).json({
+        data: doc,
+        request: {
+          type: "GET",
+          url: process.env.BASE_URL + "users"
+        }
+      });
+    } else {
+      res.status(404).json({ message: "No valid entry found for provided ID" });
+    }
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};
+
+exports.update = (req, res, next) => {
+  const id = req.params.id;
+  const updateOps = {};
+
+  for (const ops of req.body) {
+    updateOps[ops.propName] = ops.value;
+  }
+
+  m.update({ _id: id }, { $set: updateOps }).exec().then(doc => {
+    res.status(200).json({
+      message: "Data updated",
+      request: {
+        type: "GET",
+        url: process.env.BASE_URL + "users/" + id
+      }
+    });
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};
+
+exports.delete = (req, res, next) => {
+  const id = req.params.id;
+
+  m.remove({ _id: id }).exec().then(doc => {
+    res.status(200).json({
+      message: "Data deleted",
+      request: {
+        type: "GET",
+        url: process.env.BASE_URL + "users"
+      }
+    });
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};
+
 exports.login = (req, res, next) => {
-  m.find({ email: req.body.email }).exec().then(user => {
-    if (user.length < 1) {
+  m.find({ email: req.body.email }).exec().then(doc => {
+    if (doc.length < 1) {
       return res.status(401).json({ message: "Auth failed" });
     }
 
-    bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+    bcrypt.compare(req.body.password, doc[0].password, (err, result) => {
       if (err) {
         return res.status(401).json({ message: "Auth failed" });
       }
+
       if (result) {
         const token = jwt.sign(
           {
-            email: user[0].email,
-            userId: user[0]._id
+            email: doc[0].email,
+            user_id: doc[0]._id
           },
           process.env.JWT_KEY,
           {
@@ -67,15 +160,6 @@ exports.login = (req, res, next) => {
       }
       res.status(401).json({ message: "Auth failed" });
     });
-  }).catch(err => {
-    console.log(err);
-    res.status(500).json({ error: err });
-  });
-};
-
-exports.delete = (req, res, next) => {
-  m.remove({ _id: req.params.id }).exec().then(result => {
-    res.status(200).json({ message: "User deleted" });
   }).catch(err => {
     console.log(err);
     res.status(500).json({ error: err });

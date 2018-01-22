@@ -39,7 +39,7 @@ const mockupRoutes = require("./routes/mockupRoute");
 app.use("/trades", tradeRoutes);
 app.use("/orders", orderRoutes);
 app.use("/companies", companyRoutes);
-app.use("/user", userRoutes);
+app.use("/users", userRoutes);
 app.use("/mockup", mockupRoutes);
 
 app.use(function (req, res) {

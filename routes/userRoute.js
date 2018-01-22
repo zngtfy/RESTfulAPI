@@ -5,8 +5,12 @@ const router = express.Router();
 const auth = require("../middleware/checkAuth");
 const ct = require("../controllers/userController");
 
-router.post("/signup", ct.signup);
+router.get("/", auth, ct.list);
+router.post("/", ct.create);
 router.post("/login", ct.login);
+
+router.get("/:id", auth, ct.read);
+router.patch("/:id", auth, ct.update);
 router.delete("/:id", auth, ct.delete);
 
 module.exports = router;

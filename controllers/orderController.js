@@ -107,7 +107,7 @@ exports.update = (req, res, next) => {
     updateOps[ops.propName] = ops.value;
   }
 
-  m.update({ _id: id }, { $set: updateOps }).exec().then(result => {
+  m.update({ _id: id }, { $set: updateOps }).exec().then(doc => {
     res.status(200).json({
       message: "Data updated",
       request: {
@@ -124,7 +124,7 @@ exports.update = (req, res, next) => {
 exports.delete = (req, res, next) => {
   const id = req.params.id;
 
-  m.remove({ _id: id }).exec().then(result => {
+  m.remove({ _id: id }).exec().then(doc => {
     res.status(200).json({
       message: "Data deleted",
       request: {
