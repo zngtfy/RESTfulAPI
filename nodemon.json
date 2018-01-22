@@ -2,6 +2,6 @@
     "env": {
         "MONGO_ATLAS_PW": "node-shop",
         "JWT_KEY": "secret",
-        "BASE_URL": "http://localhost:3000/"
+        "BASE_URL": "https://rest-ful-api.herokuapp.com/"
     }
 }
