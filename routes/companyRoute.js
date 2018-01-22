@@ -43,7 +43,7 @@ const upload = multer({
 });
 
 router.get("/", auth, ct.list);
-router.post("/", auth, ct.create);
+router.post("/", auth, upload.single("logo"), ct.create);
 
 router.get("/:id", auth, ct.read);
 router.patch("/:id", auth, ct.update);
