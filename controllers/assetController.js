@@ -1,7 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose");
-const m = require("../models/orderModel");
+const m = require("../models/assetModel");
 const sl = "ticker asset_name last_price volume_held market_value profit_loss profit_loss_percent _id";
 
 exports.list = (req, res, next) => {

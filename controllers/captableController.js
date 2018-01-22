@@ -1,7 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose");
-const m = require("../models/orderModel");
+const m = require("../models/captableModel");
 const sl = "owner email number currency price traded_date _id";
 
 exports.list = (req, res, next) => {
