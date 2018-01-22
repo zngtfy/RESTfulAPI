@@ -285,3 +285,45 @@ exports.list_trade_history_status = (req, res, next) => {
   };
   res.status(200).json(response);
 };
+
+exports.list_company_status = (req, res, next) => {
+  const response = {
+    "count": 2,
+    "data": [
+      {
+        "Key": "1",
+        "Value": "Active"
+      },
+      {
+        "Key": "2",
+        "Value": "Inactive"
+      },
+      {
+        "Key": "3",
+        "Value": "Halt Trading"
+      }
+    ]
+  };
+  res.status(200).json(response);
+};
+
+exports.list_currency = (req, res, next) => {
+  const response = {
+    "count": 2,
+    "data": [
+      {
+        "Key": "USD",
+        "Value": "US Dollar"
+      },
+      {
+        "Key": "2",
+        "Value": "SGD"
+      },
+      {
+        "Key": "3",
+        "Value": "VND"
+      }
+    ]
+  };
+  res.status(200).json(response);
+};
