@@ -140,3 +140,75 @@ exports.delete = (req, res, next) => {
     res.status(500).json({ error: err });
   });
 };
+
+exports.orderBookBuy = (req, res, next) => {
+  const cid = req.params.cid;
+  m.find({ company: { _id: cid }, type: "BUY" }).select(sl).populate("company", "name logo").exec().then(docs => {
+    const response = {
+      count: docs.length,
+      data: docs.map(doc => {
+        return {
+          company: doc.company,
+          order_no: doc.order_no,
+          ordered_on: doc.ordered_on,
+          expires_on: doc.expires_on,
+          price: doc.price,
+          amount: doc.amount,
+          value: doc.value,
+          currency: doc.currency,
+          status: doc.status,
+          type: doc.type,
+          _id: doc._id,
+          request: {
+            type: "GET",
+            url: process.env.BASE_URL + "orders/" + doc._id
+          }
+        };
+      })
+    };
+    if (docs.length >= 0) {
+      res.status(200).json(response);
+    } else {
+      res.status(404).json({ message: "No entries found" });
+    }
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};
+
+exports.orderBookSell = (req, res, next) => {
+  const cid = req.params.cid;
+  m.find({ company: { _id: cid }, type: "SEL" }).select(sl).populate("company", "name logo").exec().then(docs => {
+    const response = {
+      count: docs.length,
+      data: docs.map(doc => {
+        return {
+          company: doc.company,
+          order_no: doc.order_no,
+          ordered_on: doc.ordered_on,
+          expires_on: doc.expires_on,
+          price: doc.price,
+          amount: doc.amount,
+          value: doc.value,
+          currency: doc.currency,
+          status: doc.status,
+          type: doc.type,
+          _id: doc._id,
+          request: {
+            type: "GET",
+            url: process.env.BASE_URL + "orders/" + doc._id
+          }
+        };
+      })
+    };
+    if (docs.length >= 0) {
+      res.status(200).json(response);
+    } else {
+      res.status(404).json({ message: "No entries found" });
+    }
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};
