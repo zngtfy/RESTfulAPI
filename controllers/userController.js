@@ -7,7 +7,7 @@ const m = require("../models/userModel");
 const sl = "company first_name last_name email phone_no country_code _id";
 
 exports.list = (req, res, next) => {
-  m.find().select(sl).populate("company", "name").exec().then(docs => {
+  m.find().select(sl).populate("company", "name logo").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
