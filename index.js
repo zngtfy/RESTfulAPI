@@ -30,9 +30,10 @@ app.use((req, res, next) => {
 });
 
 const orderRoutes = require("./routes/orderRoute");
+const orderhistoryRoutes = require("./routes/orderhistoryRoute");
 const tradeRoutes = require("./routes/tradeRoute");
-const tradingboardRoutes = require("./routes/tradingboardRoute");
 const tradehistoryRoutes = require("./routes/tradehistoryRoute");
+const tradingboardRoutes = require("./routes/tradingboardRoute");
 const assetRoutes = require("./routes/assetRoute");
 const companyRoutes = require("./routes/companyRoute");
 const captableRoutes = require("./routes/captableRoute");
@@ -41,9 +42,10 @@ const mockupRoutes = require("./routes/mockupRoute");
 
 // Routes which should handle requests
 app.use("/orders", orderRoutes);
+app.use("/orderhistories", orderhistoryRoutes);
 app.use("/trades", tradeRoutes);
-app.use("/tradingboards", tradingboardRoutes);
 app.use("/tradehistories", tradehistoryRoutes);
+app.use("/tradingboards", tradingboardRoutes);
 app.use("/assets", assetRoutes);
 app.use("/companies", companyRoutes);
 app.use("/captables", captableRoutes);
