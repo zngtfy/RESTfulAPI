@@ -38,12 +38,12 @@ exports.dashboardTradeStatus = (req, res, next) => {
     "count": 3,
     "data": [
       {
-        "Key": "Settled",
-        "Value": "Settled"
-      },
-      {
         "Key": "Pending",
         "Value": "Pending"
+      },
+      {
+        "Key": "Settled",
+        "Value": "Settled"
       },
       {
         "Key": "Unsuccessful",
