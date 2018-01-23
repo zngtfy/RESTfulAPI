@@ -1,50 +1,5 @@
 "use strict";
 
-exports.list_trading_boards = (req, res, next) => {
-  const response = {
-    "count": 2,
-    "data": [
-      {
-        "Company": "CapBridge Syndicate",
-        "LastPrice": 4,
-        "NoofBuyOrders": 0,
-        "NoofSellOrders": 4,
-        "HighestBid": 25,
-        "VWAP": "-",
-        "LowestAsk": "Hello"
-      },
-      {
-        "Company": "CapBridge Syndicate",
-        "LastPrice": 3,
-        "NoofBuyOrders": 0,
-        "NoofSellOrders": 3,
-        "HighestBid": 2,
-        "VWAP": "-",
-        "LowestAsk": "No no"
-      }
-    ]
-  };
-  res.status(200).json(response);
-};
-
-exports.list_trading_histories = (req, res, next) => {
-  const response = {
-    "count": 1,
-    "data": [
-      {
-        "Name": "Honey Bee",
-        "Price": 4,
-        "Amount": 25,
-        "Value": 100,
-        "Currency": "USD",
-        "Status": "Settled",
-        "SubmittedOn": "2018-05-01T09:40:00.000Z"
-      }
-    ]
-  };
-  res.status(200).json(response);
-};
-
 exports.list_order_status = (req, res, next) => {
   const response = {
     "count": 4,
