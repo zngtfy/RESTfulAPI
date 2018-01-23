@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 
 const sc = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    company: { type: mongoose.Schema.Types.ObjectId, ref: "Company", required: false },
     trade_no: { type: String, required: true },
-    company: { type: String, required: true },
     submitted_on: { type: Date, required: true },
     trade_date: { type: Date, required: true },
     price: { type: Number, required: true },

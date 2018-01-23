@@ -2,14 +2,15 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/captableModel");
-const sl = "owner email number currency price traded_date _id";
+const sl = "company owner email number currency price traded_date _id";
 
 exports.list = (req, res, next) => {
-  m.find().select(sl).exec().then(docs => {
+  m.find().select(sl).populate("company", "name").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
         return {
+          company: doc.company,
           owner: doc.owner,
           email: doc.email,
           number: doc.number,
@@ -38,6 +39,7 @@ exports.list = (req, res, next) => {
 exports.create = (req, res, next) => {
   const t = new m({
     _id: new mongoose.Types.ObjectId(),
+    company: req.body.companyId,
     owner: req.body.owner,
     email: req.body.email,
     number: req.body.number,
@@ -50,6 +52,7 @@ exports.create = (req, res, next) => {
     res.status(201).json({
       message: "Created successfully",
       data: {
+        company: doc.company,
         owner: doc.owner,
         email: doc.email,
         number: doc.number,

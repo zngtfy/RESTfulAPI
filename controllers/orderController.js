@@ -2,16 +2,16 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/orderModel");
-const sl = "order_no company ordered_on expires_on price amount value currency status _id";
+const sl = "company order_no ordered_on expires_on price amount value currency status type _id";
 
 exports.list = (req, res, next) => {
-  m.find().select(sl).exec().then(docs => {
+  m.find().select(sl).populate("company", "name").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
         return {
-          order_no: doc.order_no,
           company: doc.company,
+          order_no: doc.order_no,
           ordered_on: doc.ordered_on,
           expires_on: doc.expires_on,
           price: doc.price,
@@ -19,6 +19,7 @@ exports.list = (req, res, next) => {
           value: doc.value,
           currency: doc.currency,
           status: doc.status,
+          type: doc.type,
           _id: doc._id,
           request: {
             type: "GET",
@@ -41,23 +42,24 @@ exports.list = (req, res, next) => {
 exports.create = (req, res, next) => {
   const t = new m({
     _id: new mongoose.Types.ObjectId(),
+    company: req.body.companyId,
     order_no: req.body.orderNo,
-    company: req.body.company,
     ordered_on: req.body.orderedOn,
     expires_on: req.body.expiresOn,
     price: req.body.price,
     amount: req.body.amount,
     value: req.body.value,
     currency: req.body.currency,
-    status: req.body.status
+    status: req.body.status,
+    type: req.body.type
   });
 
   t.save().then(doc => {
     res.status(201).json({
       message: "Created successfully",
       data: {
-        order_no: doc.order_no,
         company: doc.company,
+        order_no: doc.order_no,
         ordered_on: doc.ordered_on,
         expires_on: doc.expires_on,
         price: doc.price,
@@ -65,6 +67,7 @@ exports.create = (req, res, next) => {
         value: doc.value,
         currency: doc.currency,
         status: doc.status,
+        type: doc.type,
         _id: doc._id,
         request: {
           type: "GET",

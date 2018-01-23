@@ -2,16 +2,16 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/tradeModel");
-const sl = "trade_no company submitted_on trade_date price amount value currency status _id";
+const sl = "company trade_no submitted_on trade_date price amount value currency status _id";
 
 exports.list = (req, res, next) => {
-  m.find().select(sl).exec().then(docs => {
+  m.find().select(sl).populate("company", "name").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
         return {
-          trade_no: doc.trade_no,
           company: doc.company,
+          trade_no: doc.trade_no,
           submitted_on: doc.submitted_on,
           trade_date: doc.trade_date,
           price: doc.price,
@@ -41,8 +41,8 @@ exports.list = (req, res, next) => {
 exports.create = (req, res, next) => {
   const t = new m({
     _id: new mongoose.Types.ObjectId(),
+    company: req.body.companyId,
     trade_no: req.body.tradeNo,
-    company: req.body.company,
     submitted_on: req.body.submittedOn,
     trade_date: req.body.tradeDate,
     price: req.body.price,
@@ -56,8 +56,8 @@ exports.create = (req, res, next) => {
     res.status(201).json({
       message: "Created successfully",
       data: {
-        trade_no: doc.trade_no,
         company: doc.company,
+        trade_no: doc.trade_no,
         submitted_on: doc.submitted_on,
         trade_date: doc.trade_date,
         price: doc.price,

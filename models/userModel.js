@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const sc = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    company: { type: mongoose.Schema.Types.ObjectId, ref: "Company", required: false },
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
     email: {
@@ -14,9 +15,7 @@ const sc = mongoose.Schema({
     },
     password: { type: String, required: true },
     phone_no: { type: String, required: true },
-    country_code: { type: String, required: true },
-    company: { type: String, required: true },
-    terms_conditions: { type: Boolean, required: true }
+    country_code: { type: String, required: true }
 });
 
 module.exports = mongoose.model("User", sc);

@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/companyModel");
-const sl = "company_name logo currency status _id";
+const sl = "name logo currency status _id";
 
 exports.list = (req, res, next) => {
   m.find().select(sl).exec().then(docs => {
@@ -10,7 +10,7 @@ exports.list = (req, res, next) => {
       count: docs.length,
       data: docs.map(doc => {
         return {
-          company_name: doc.company_name,
+          name: doc.name,
           logo: process.env.BASE_URL + doc.logo,
           currency: doc.currency,
           status: doc.status,
@@ -36,7 +36,7 @@ exports.list = (req, res, next) => {
 exports.create = (req, res, next) => {
   const t = new m({
     _id: new mongoose.Types.ObjectId(),
-    company_name: req.body.companyName,
+    name: req.body.name,
     logo: req.file.path,
     currency: req.body.currency,
     status: req.body.status
@@ -46,7 +46,7 @@ exports.create = (req, res, next) => {
     res.status(201).json({
       message: "Created successfully",
       data: {
-        company_name: doc.company_name,
+        name: doc.name,
         logo: process.env.BASE_URL + doc.logo,
         currency: doc.currency,
         status: doc.status,
