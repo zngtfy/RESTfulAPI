@@ -1,31 +1,60 @@
 "use strict";
 
-exports.list_order_status = (req, res, next) => {
+exports.dashboardOrderStatus = (req, res, next) => {
   const response = {
-    "count": 4,
+    "count": 6,
     "data": [
       {
-        "Key": "OPE",
+        "Key": "Open",
         "Value": "Open"
       },
       {
-        "Key": "MAT",
+        "Key": "Matched",
         "Value": "Matched"
       },
       {
-        "Key": "CAN",
+        "Key": "Expired",
+        "Value": "Expired"
+      },
+      {
+        "Key": "Cancelled",
         "Value": "Cancelled"
       },
       {
-        "Key": "UNS",
-        "Value": "Unsuccessful"
+        "Key": "Pending",
+        "Value": "Pending"
       },
+      {
+        "Key": "Unsuccessful",
+        "Value": "Unsuccessful"
+      }
     ]
   };
   res.status(200).json(response);
 };
 
-exports.list_trade_status = (req, res, next) => {
+exports.dashboardTradeStatus = (req, res, next) => {
+  const response = {
+    "count": 3,
+    "data": [
+      {
+        "Key": "Settled",
+        "Value": "Settled"
+      },
+      {
+        "Key": "Pending",
+        "Value": "Pending"
+      },
+      {
+        "Key": "Unsuccessful",
+        "Value": "Unsuccessful"
+      }
+    ]
+  };
+  res.status(200).json(response);
+};
+
+exports.tradeStatus = (req, res, next) => {
   const response = {
     "count": 8,
     "data": [
@@ -66,16 +95,16 @@ exports.list_trade_status = (req, res, next) => {
   res.status(200).json(response);
 };
 
-exports.list_trade_history_status = (req, res, next) => {
+exports.historyStatus = (req, res, next) => {
   const response = {
     "count": 2,
     "data": [
       {
-        "Key": "1",
+        "Key": "Pending",
         "Value": "Pending"
       },
       {
-        "Key": "2",
+        "Key": "Settled",
         "Value": "Settled"
       }
     ]
@@ -83,20 +112,20 @@ exports.list_trade_history_status = (req, res, next) => {
   res.status(200).json(response);
 };
 
-exports.list_company_status = (req, res, next) => {
+exports.companyStatus = (req, res, next) => {
   const response = {
-    "count": 2,
+    "count": 3,
     "data": [
       {
-        "Key": "ACT",
+        "Key": "Active",
         "Value": "Active"
       },
       {
-        "Key": "INA",
+        "Key": "Inactive",
         "Value": "Inactive"
       },
       {
-        "Key": "HAL",
+        "Key": "Halt Trading",
         "Value": "Halt Trading"
       }
     ]
@@ -104,9 +133,9 @@ exports.list_company_status = (req, res, next) => {
   res.status(200).json(response);
 };
 
-exports.list_currency = (req, res, next) => {
+exports.currency = (req, res, next) => {
   const response = {
-    "count": 2,
+    "count": 3,
     "data": [
       {
         "Key": "USD",

@@ -4,10 +4,11 @@ const express = require("express");
 const router = express.Router();
 const ct = require("../controllers/mockupController");
 
-router.get("/order-status", ct.list_order_status);
-router.get("/trade-status", ct.list_trade_status);
-router.get("/trade-history-status", ct.list_trade_history_status);
-router.get("/company-status", ct.list_company_status);
-router.get("/currency", ct.list_currency);
+router.get("/dashboard-order-status", ct.dashboardOrderStatus);
+router.get("/dashboard-trade-status", ct.dashboardTradeStatus);
+router.get("/trade-status", ct.tradeStatus);
+router.get("/trade-history-status", ct.historyStatus);
+router.get("/company-status", ct.companyStatus);
+router.get("/currency", ct.currency);
 
 module.exports = router;
