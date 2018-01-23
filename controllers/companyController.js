@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/companyModel");
-const sl = "name logo currency status _id";
+const sl = "name logo currency status note url _id";
 
 exports.list = (req, res, next) => {
   m.find().select(sl).exec().then(docs => {
@@ -14,6 +14,8 @@ exports.list = (req, res, next) => {
           logo: process.env.BASE_URL + doc.logo,
           currency: doc.currency,
           status: doc.status,
+          note: doc.note,
+          url: doc.url,
           _id: doc._id,
           request: {
             type: "GET",
@@ -39,7 +41,9 @@ exports.create = (req, res, next) => {
     name: req.body.name,
     logo: req.file.path,
     currency: req.body.currency,
-    status: req.body.status
+    status: req.body.status,
+    note: req.body.note,
+    url: req.body.url
   });
 
   t.save().then(doc => {
@@ -50,6 +54,8 @@ exports.create = (req, res, next) => {
         logo: process.env.BASE_URL + doc.logo,
         currency: doc.currency,
         status: doc.status,
+        note: doc.note,
+        url: doc.url,
         _id: doc._id,
         request: {
           type: "GET",

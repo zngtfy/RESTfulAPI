@@ -7,7 +7,9 @@ const sc = mongoose.Schema({
     name: { type: String, required: true },
     logo: { type: String, required: true },
     currency: { type: String, required: true },
-    status: { type: String, required: true }
+    status: { type: String, required: true },
+    note: { type: String, required: false },
+    url: { type: String, required: false }
 });
 
 module.exports = mongoose.model("Company", sc);
