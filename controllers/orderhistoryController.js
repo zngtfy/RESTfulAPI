@@ -128,3 +128,35 @@ exports.delete = (req, res, next) => {
     res.status(500).json({ error: err });
   });
 };
+
+exports.orderHistory = (req, res, next) => {
+  const oid = req.params.oid;
+  m.find({ order: { _id: oid } }).select(sl).populate("order", "order_no").exec().then(docs => {
+    const response = {
+      count: docs.length,
+      data: docs.map(doc => {
+        return {
+          order: doc.order,
+          action_on: doc.action_on,
+          action_by: doc.action_by,
+          action_role: doc.action_role,
+          action: doc.action,
+          remarks: doc.remarks,
+          _id: doc._id,
+          request: {
+            type: "GET",
+            url: process.env.BASE_URL + "orderhistories/" + doc._id
+          }
+        };
+      })
+    };
+    if (docs.length >= 0) {
+      res.status(200).json(response);
+    } else {
+      res.status(404).json({ message: "No entries found" });
+    }
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};

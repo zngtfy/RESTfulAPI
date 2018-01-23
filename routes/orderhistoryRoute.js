@@ -12,4 +12,6 @@ router.get("/:id", auth, ct.read);
 router.patch("/:id", auth, ct.update);
 router.delete("/:id", auth, ct.delete);
 
+router.get("/history/:oid", auth, ct.orderHistory);
+
 module.exports = router;
