@@ -2,16 +2,15 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/tradingboardModel");
-const sl = "company_name logo last_price noof_buy_orders noof_sell_orders highest_bid vwap lowest_ask _id";
+const sl = "company last_price noof_buy_orders noof_sell_orders highest_bid vwap lowest_ask _id";
 
 exports.list = (req, res, next) => {
-  m.find().select(sl).exec().then(docs => {
+  m.find().select(sl).populate("company", "name").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
         return {
-          company_name: doc.company_name,
-          logo: doc.logo,
+          company: doc.company,
           last_price: doc.last_price,
           noof_buy_orders: doc.noof_buy_orders,
           noof_sell_orders: doc.noof_sell_orders,
@@ -40,8 +39,7 @@ exports.list = (req, res, next) => {
 exports.create = (req, res, next) => {
   const t = new m({
     _id: new mongoose.Types.ObjectId(),
-    company_name: req.body.companyName,
-    logo: req.body.logo,
+    company: req.body.companyId,
     last_price: req.body.lastPrice,
     noof_buy_orders: req.body.noofBuyOrders,
     noof_sell_orders: req.body.noofSellOrders,
@@ -54,8 +52,7 @@ exports.create = (req, res, next) => {
     res.status(201).json({
       message: "Created successfully",
       data: {
-        company_name: doc.company_name,
-        logo: doc.logo,
+        company: doc.company,
         last_price: doc.last_price,
         noof_buy_orders: doc.noof_buy_orders,
         noof_sell_orders: doc.noof_sell_orders,
