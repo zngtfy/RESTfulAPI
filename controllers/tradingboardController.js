@@ -11,6 +11,7 @@ exports.list = (req, res, next) => {
       data: docs.map(doc => {
         return {
           company: doc.company,
+          company_name: doc.company.name,
           last_price: doc.last_price,
           noof_buy_orders: doc.noof_buy_orders,
           noof_sell_orders: doc.noof_sell_orders,
