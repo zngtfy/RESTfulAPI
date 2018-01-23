@@ -72,7 +72,7 @@ exports.create = (req, res, next) => {
 exports.read = (req, res, next) => {
   const id = req.params.id;
 
-  m.findById(id).select(sl).exec().then(doc => {
+  m.findById(id).select(sl).populate("order", "order_no").exec().then(doc => {
     if (doc) {
       res.status(200).json({
         data: doc,
