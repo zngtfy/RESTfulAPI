@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/captableModel");
-const sl = "company owner email number currency price traded_date _id";
+const sl = "company first_name last_name email status kyc_status noof_tokens currency avg_price initial_unit_price value submitted_on _id";
 
 exports.list = (req, res, next) => {
   m.find().select(sl).populate("company", "name logo").exec().then(docs => {
@@ -11,12 +11,17 @@ exports.list = (req, res, next) => {
       data: docs.map(doc => {
         return {
           company: doc.company,
-          owner: doc.owner,
+          first_name: doc.first_name,
+          last_name: doc.last_name,
           email: doc.email,
-          number: doc.number,
+          status: doc.status,
+          kyc_status: doc.kyc_status,
+          noof_tokens: doc.noof_tokens,
           currency: doc.currency,
-          price: doc.price,
-          traded_date: doc.traded_date,
+          avg_price: doc.avg_price,
+          initial_unit_price: doc.initial_unit_price,
+          value: doc.value,
+          submitted_on: doc.submitted_on,
           _id: doc._id,
           request: {
             type: "GET",
@@ -40,12 +45,17 @@ exports.create = (req, res, next) => {
   const t = new m({
     _id: new mongoose.Types.ObjectId(),
     company: req.body.companyId,
-    owner: req.body.owner,
+    first_name: req.body.firstName,
+    last_name: req.body.lastName,
     email: req.body.email,
-    number: req.body.number,
+    status: req.body.status,
+    kyc_status: req.body.kycStatus,
+    noof_tokens: req.body.noofTokens,
     currency: req.body.currency,
-    price: req.body.price,
-    traded_date: req.body.tradedDate
+    avg_price: req.body.avgPrice,
+    initial_unit_price: req.body.initialUnitPrice,
+    value: req.body.value,
+    submitted_on: req.body.submittedOn
   });
 
   t.save().then(doc => {
@@ -53,12 +63,17 @@ exports.create = (req, res, next) => {
       message: "Created successfully",
       data: {
         company: doc.company,
-        owner: doc.owner,
+        first_name: doc.first_name,
+        last_name: doc.last_name,
         email: doc.email,
-        number: doc.number,
+        status: doc.status,
+        kyc_status: doc.kyc_status,
+        noof_tokens: doc.noof_tokens,
         currency: doc.currency,
-        price: doc.price,
-        traded_date: doc.traded_date,
+        avg_price: doc.avg_price,
+        initial_unit_price: doc.initial_unit_price,
+        value: doc.value,
+        submitted_on: doc.submitted_on,
         _id: doc._id,
         request: {
           type: "GET",
