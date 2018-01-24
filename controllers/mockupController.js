@@ -153,3 +153,20 @@ exports.currency = (req, res, next) => {
   };
   res.status(200).json(response);
 };
+
+exports.roleStatus = (req, res, next) => {
+  const response = {
+    "count": 2,
+    "data": [
+      {
+        "Key": "Active",
+        "Value": "Active"
+      },
+      {
+        "Key": "Inactive",
+        "Value": "Inactive"
+      }
+    ]
+  };
+  res.status(200).json(response);
+};

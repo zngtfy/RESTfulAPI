@@ -10,7 +10,8 @@ const sc = mongoose.Schema({
     noof_sell_orders: { type: Number, required: true },
     highest_bid: { type: Number, required: false },
     vwap: { type: String, required: false },
-    lowest_ask: { type: Number, required: true }
+    lowest_ask: { type: Number, required: true },
+    initial_token_price: { type: Number, required: true }
 });
 
 module.exports = mongoose.model("Tradingboard", sc);

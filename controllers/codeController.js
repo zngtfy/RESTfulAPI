@@ -1,28 +1,22 @@
 "use strict";
 
 const mongoose = require("mongoose");
-const m = require("../models/tradingboardModel");
-const sl = "company last_price noof_buy_orders noof_sell_orders highest_bid vwap lowest_ask initial_token_price _id";
+const m = require("../models/codeModel");
+const sl = "key value type _id";
 
 exports.list = (req, res, next) => {
-  m.find().select(sl).populate("company", "name logo").exec().then(docs => {
+  m.find().select(sl).exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
         return {
-          company: doc.company,
-          company_name: doc.company.name,
-          last_price: doc.last_price,
-          noof_buy_orders: doc.noof_buy_orders,
-          noof_sell_orders: doc.noof_sell_orders,
-          highest_bid: doc.highest_bid,
-          vwap: doc.vwap,
-          lowest_ask: doc.lowest_ask,
-          initial_token_price: doc.initial_token_price,
+          key: doc.key,
+          value: doc.value,
+          type: doc.type,
           _id: doc._id,
           request: {
             type: "GET",
-            url: process.env.BASE_URL + "tradingboards/" + doc._id
+            url: process.env.BASE_URL + "codes/" + doc._id
           }
         };
       })
@@ -41,32 +35,22 @@ exports.list = (req, res, next) => {
 exports.create = (req, res, next) => {
   const t = new m({
     _id: new mongoose.Types.ObjectId(),
-    company: req.body.companyId,
-    last_price: req.body.lastPrice,
-    noof_buy_orders: req.body.noofBuyOrders,
-    noof_sell_orders: req.body.noofSellOrders,
-    highest_bid: req.body.highestBid,
-    vwap: req.body.vwap,
-    lowest_ask: req.body.lowestAsk,
-    initial_token_price: req.body.initialTokenPrice
+    key: req.body.key,
+    value: req.body.value,
+    type: req.body.type
   });
 
   t.save().then(doc => {
     res.status(201).json({
       message: "Created successfully",
       data: {
-        company: doc.company,
-        last_price: doc.last_price,
-        noof_buy_orders: doc.noof_buy_orders,
-        noof_sell_orders: doc.noof_sell_orders,
-        highest_bid: doc.highest_bid,
-        vwap: doc.vwap,
-        lowest_ask: doc.lowest_ask,
-        initial_token_price: doc.initial_token_price,
+        key: doc.key,
+        value: doc.value,
+        type: doc.type,
         _id: doc._id,
         request: {
           type: "GET",
-          url: process.env.BASE_URL + "tradingboards/" + doc._id
+          url: process.env.BASE_URL + "codes/" + doc._id
         }
       }
     });
@@ -79,13 +63,13 @@ exports.create = (req, res, next) => {
 exports.read = (req, res, next) => {
   const id = req.params.id;
 
-  m.findById(id).select(sl).populate("company", "name logo").exec().then(doc => {
+  m.findById(id).select(sl).exec().then(doc => {
     if (doc) {
       res.status(200).json({
         data: doc,
         request: {
           type: "GET",
-          url: process.env.BASE_URL + "tradingboards"
+          url: process.env.BASE_URL + "codes"
         }
       });
     } else {
@@ -110,7 +94,7 @@ exports.update = (req, res, next) => {
       message: "Data updated",
       request: {
         type: "GET",
-        url: process.env.BASE_URL + "tradingboards/" + id
+        url: process.env.BASE_URL + "codes/" + id
       }
     });
   }).catch(err => {
@@ -127,9 +111,39 @@ exports.delete = (req, res, next) => {
       message: "Data deleted",
       request: {
         type: "GET",
-        url: process.env.BASE_URL + "tradingboards"
+        url: process.env.BASE_URL + "codes"
       }
     });
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};
+
+exports.listByType = (req, res, next) => {
+  const type = req.params.type;
+
+  m.find({ type: type }).select(sl).exec().then(docs => {
+    const response = {
+      count: docs.length,
+      data: docs.map(doc => {
+        return {
+          key: doc.key,
+          value: doc.value,
+          type: doc.type,
+          _id: doc._id,
+          request: {
+            type: "GET",
+            url: process.env.BASE_URL + "codes/" + doc._id
+          }
+        };
+      })
+    };
+    if (docs.length >= 0) {
+      res.status(200).json(response);
+    } else {
+      res.status(404).json({ message: "No entries found" });
+    }
   }).catch(err => {
     console.log(err);
     res.status(500).json({ error: err });

@@ -38,6 +38,8 @@ const assetRoutes = require("./routes/assetRoute");
 const companyRoutes = require("./routes/companyRoute");
 const captableRoutes = require("./routes/captableRoute");
 const userRoutes = require("./routes/userRoute");
+const roleRoutes = require("./routes/roleRoute");
+const codeRoutes = require("./routes/codeRoute");
 const mockupRoutes = require("./routes/mockupRoute");
 
 // Routes which should handle requests
@@ -50,6 +52,8 @@ app.use("/assets", assetRoutes);
 app.use("/companies", companyRoutes);
 app.use("/captables", captableRoutes);
 app.use("/users", userRoutes);
+app.use("/roles", roleRoutes);
+app.use("/codes", codeRoutes);
 app.use("/mockup", mockupRoutes);
 
 app.use(function (req, res) {
