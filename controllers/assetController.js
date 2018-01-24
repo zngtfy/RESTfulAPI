@@ -18,6 +18,7 @@ exports.list = (req, res, next) => {
           market_value: doc.market_value,
           profit_loss: doc.profit_loss,
           profit_loss_percent: doc.profit_loss_percent,
+          currency: doc.currency,
           _id: doc._id,
           request: {
             type: "GET",
@@ -47,7 +48,8 @@ exports.create = (req, res, next) => {
     volume_held: req.body.volumeHeld,
     market_value: req.body.marketValue,
     profit_loss: req.body.profitLoss,
-    profit_loss_percent: req.body.profitLossPercent
+    profit_loss_percent: req.body.profitLossPercent,
+    currency: req.body.currency
   });
 
   t.save().then(doc => {
@@ -62,6 +64,7 @@ exports.create = (req, res, next) => {
         market_value: doc.market_value,
         profit_loss: doc.profit_loss,
         profit_loss_percent: doc.profit_loss_percent,
+        currency: doc.currency,
         _id: doc._id,
         request: {
           type: "GET",
