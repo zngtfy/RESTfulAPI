@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/tradingboardModel");
-const sl = "company last_price noof_buy_orders noof_sell_orders highest_bid vwap lowest_ask initial_token_price _id";
+const sl = "company last_price noof_buy_orders noof_sell_orders highest_bid vwap lowest_ask initial_token_price currency _id";
 
 exports.list = (req, res, next) => {
   m.find().select(sl).populate("company", "name logo").exec().then(docs => {
@@ -19,6 +19,7 @@ exports.list = (req, res, next) => {
           vwap: doc.vwap,
           lowest_ask: doc.lowest_ask,
           initial_token_price: doc.initial_token_price,
+          currency: doc.currency,
           _id: doc._id,
           request: {
             type: "GET",
@@ -48,7 +49,8 @@ exports.create = (req, res, next) => {
     highest_bid: req.body.highestBid,
     vwap: req.body.vwap,
     lowest_ask: req.body.lowestAsk,
-    initial_token_price: req.body.initialTokenPrice
+    initial_token_price: req.body.initialTokenPrice,
+    currency: req.body.currency
   });
 
   t.save().then(doc => {
@@ -63,6 +65,7 @@ exports.create = (req, res, next) => {
         vwap: doc.vwap,
         lowest_ask: doc.lowest_ask,
         initial_token_price: doc.initial_token_price,
+        currency: doc.currency,
         _id: doc._id,
         request: {
           type: "GET",
