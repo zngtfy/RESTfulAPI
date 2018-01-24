@@ -40,7 +40,6 @@ const captableRoutes = require("./routes/captableRoute");
 const userRoutes = require("./routes/userRoute");
 const roleRoutes = require("./routes/roleRoute");
 const codeRoutes = require("./routes/codeRoute");
-const mockupRoutes = require("./routes/mockupRoute");
 
 // Routes which should handle requests
 app.use("/orders", orderRoutes);
@@ -54,7 +53,6 @@ app.use("/captables", captableRoutes);
 app.use("/users", userRoutes);
 app.use("/roles", roleRoutes);
 app.use("/codes", codeRoutes);
-app.use("/mockup", mockupRoutes);
 
 app.use(function (req, res) {
   res.status(404).send({ url: req.originalUrl + " not found" })
