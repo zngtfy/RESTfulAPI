@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const m = require("../models/userModel");
-const sl = "company first_name last_name email phone_no country_code _id";
+const sl = "company first_name last_name email phone_no country_code status kyc_status _id";
 
 exports.list = (req, res, next) => {
   m.find().select(sl).populate("company", "name logo").exec().then(docs => {
@@ -18,6 +18,8 @@ exports.list = (req, res, next) => {
           email: doc.email,
           phone_no: doc.phone_no,
           country_code: doc.country_code,
+          status: doc.status,
+          kyc_status: doc.kyc_status,
           _id: doc._id,
           request: {
             type: "GET",
@@ -54,7 +56,9 @@ exports.create = (req, res, next) => {
             email: req.body.email,
             password: hash,
             phone_no: req.body.phoneNo,
-            country_code: req.body.countryCode
+            country_code: req.body.countryCode,
+            status: req.body.status,
+            kyc_status: req.body.kycStatus
           });
           t.save().then(doc => {
             res.status(201).json({ message: "Data created" });

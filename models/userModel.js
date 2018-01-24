@@ -15,7 +15,9 @@ const sc = mongoose.Schema({
     },
     password: { type: String, required: true },
     phone_no: { type: String, required: true },
-    country_code: { type: String, required: true }
+    country_code: { type: String, required: true },
+    status: { type: String, required: true },
+    kyc_status: { type: String, required: true }
 });
 
 module.exports = mongoose.model("User", sc);
