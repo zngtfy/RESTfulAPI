@@ -11,7 +11,7 @@ exports.list = (req, res, next) => {
       data: docs.map(doc => {
         return {
           name: doc.name,
-          logo: process.env.BASE_URL + doc.logo,
+          logo: doc.logo,
           currency: doc.currency,
           status: doc.status,
           note: doc.note,
@@ -51,7 +51,7 @@ exports.create = (req, res, next) => {
       message: "Created successfully",
       data: {
         name: doc.name,
-        logo: process.env.BASE_URL + doc.logo,
+        logo: doc.logo,
         currency: doc.currency,
         status: doc.status,
         note: doc.note,
