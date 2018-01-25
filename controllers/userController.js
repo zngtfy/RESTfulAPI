@@ -44,6 +44,9 @@ exports.create = (req, res, next) => {
     if (user.length >= 1) {
       return res.status(409).json({ message: "Mail exists" });
     } else {
+      if (req.body.password === undefined) {
+        req.body.password = "123456";
+      }
       bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
           return res.status(500).json({ error: err });
