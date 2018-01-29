@@ -177,3 +177,39 @@ exports.tradeHistory = (req, res, next) => {
     res.status(500).json({ error: err });
   });
 };
+
+exports.listByUid = (req, res, next) => {
+  const uid = req.params.uid;
+  m.find({ user_id: uid }).select(sl).populate("company", "name logo status").exec().then(docs => {
+    const response = {
+      count: docs.length,
+      data: docs.map(doc => {
+        return {
+          company: doc.company,
+          trade_no: doc.trade_no,
+          submitted_on: doc.submitted_on,
+          trade_date: doc.trade_date,
+          price: doc.price,
+          amount: doc.amount,
+          value: doc.value,
+          currency: doc.currency,
+          status: doc.status,
+          user_id: doc.user_id,
+          _id: doc._id,
+          request: {
+            type: "GET",
+            url: process.env.BASE_URL + "trades/" + doc._id
+          }
+        };
+      })
+    };
+    if (docs.length >= 0) {
+      res.status(200).json(response);
+    } else {
+      res.status(404).json({ message: "No entries found" });
+    }
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};

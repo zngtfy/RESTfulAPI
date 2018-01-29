@@ -140,3 +140,39 @@ exports.delete = (req, res, next) => {
     res.status(500).json({ error: err });
   });
 };
+
+exports.listByUid = (req, res, next) => {
+  const uid = req.params.uid;
+  m.find({ user_id: uid }).select(sl).exec().then(docs => {
+    const response = {
+      count: docs.length,
+      data: docs.map(doc => {
+        return {
+          ticker: doc.ticker,
+          asset_name: doc.asset_name,
+          ave_traded_price: doc.ave_traded_price,
+          last_price: doc.last_price,
+          volume_held: doc.volume_held,
+          market_value: doc.market_value,
+          profit_loss: doc.profit_loss,
+          profit_loss_percent: doc.profit_loss_percent,
+          currency: doc.currency,
+          user_id: doc.user_id,
+          _id: doc._id,
+          request: {
+            type: "GET",
+            url: process.env.BASE_URL + "assets/" + doc._id
+          }
+        };
+      })
+    };
+    if (docs.length >= 0) {
+      res.status(200).json(response);
+    } else {
+      res.status(404).json({ message: "No entries found" });
+    }
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};

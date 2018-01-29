@@ -6,6 +6,7 @@ const auth = require("../middleware/checkAuth");
 const ct = require("../controllers/orderController");
 
 router.get("/", auth, ct.list);
+router.get("/:uid", auth, ct.listByUid);
 router.post("/", auth, ct.create);
 
 router.get("/:id", auth, ct.read);
