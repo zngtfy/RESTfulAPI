@@ -13,6 +13,6 @@ router.get("/:id", auth, ct.read);
 router.patch("/:id", auth, ct.update);
 router.delete("/:id", auth, ct.delete);
 
-router.get("/history/:cid", auth, ct.tradeHistory);
+router.get("/history/:cid/:uid", auth, ct.tradeHistory);
 
 module.exports = router;

@@ -13,7 +13,7 @@ router.get("/:id", auth, ct.read);
 router.patch("/:id", auth, ct.update);
 router.delete("/:id", auth, ct.delete);
 
-router.get("/buy/:cid", auth, ct.orderBookBuy);
-router.get("/sell/:cid", auth, ct.orderBookSell);
+router.get("/buy/:cid/:uid", auth, ct.orderBookBuy);
+router.get("/sell/:cid/:uid", auth, ct.orderBookSell);
 
 module.exports = router;
