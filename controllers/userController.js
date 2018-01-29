@@ -153,10 +153,12 @@ exports.login = (req, res, next) => {
             userId: doc[0]._id,
             firstName: doc[0].first_name,
             lastName: doc[0].last_name,
+            kycStatus: doc[0].kyc_status,
+            status: doc[0].status
           },
           process.env.JWT_KEY,
           {
-            expiresIn: "1h"
+            expiresIn: "12h"
           }
         );
 
