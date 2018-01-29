@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/orderModel");
-const sl = "company order_no ordered_on expires_on price amount value currency status type _id";
+const sl = "company order_no ordered_on expires_on price amount value currency status type user_id _id";
 
 exports.list = (req, res, next) => {
   m.find().select(sl).populate("company", "name logo status").exec().then(docs => {
@@ -20,6 +20,7 @@ exports.list = (req, res, next) => {
           currency: doc.currency,
           status: doc.status,
           type: doc.type,
+          user_id: doc.user_id,
           _id: doc._id,
           request: {
             type: "GET",
@@ -51,7 +52,8 @@ exports.create = (req, res, next) => {
     value: req.body.value,
     currency: req.body.currency,
     status: req.body.status,
-    type: req.body.type
+    type: req.body.type,
+    user_id: req.body.userId
   });
 
   t.save().then(doc => {
@@ -68,6 +70,7 @@ exports.create = (req, res, next) => {
         currency: doc.currency,
         status: doc.status,
         type: doc.type,
+        user_id: doc.user_id,
         _id: doc._id,
         request: {
           type: "GET",
@@ -143,7 +146,8 @@ exports.delete = (req, res, next) => {
 
 exports.orderBookBuy = (req, res, next) => {
   const cid = req.params.cid;
-  m.find({ company: { _id: cid }, type: "BUY" }).select(sl).populate("company", "name logo status").exec().then(docs => {
+  const uid = req.params.uid;
+  m.find({ company: { _id: cid }, type: "BUY", user_id: uid }).select(sl).populate("company", "name logo status").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
@@ -158,6 +162,7 @@ exports.orderBookBuy = (req, res, next) => {
           currency: doc.currency,
           status: doc.status,
           type: doc.type,
+          user_id: doc.user_id,
           _id: doc._id,
           request: {
             type: "GET",
@@ -179,7 +184,8 @@ exports.orderBookBuy = (req, res, next) => {
 
 exports.orderBookSell = (req, res, next) => {
   const cid = req.params.cid;
-  m.find({ company: { _id: cid }, type: "SEL" }).select(sl).populate("company", "name logo status").exec().then(docs => {
+  const uid = req.params.uid;
+  m.find({ company: { _id: cid }, type: "SEL", user_id: uid }).select(sl).populate("company", "name logo status").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
@@ -194,6 +200,7 @@ exports.orderBookSell = (req, res, next) => {
           currency: doc.currency,
           status: doc.status,
           type: doc.type,
+          user_id: doc.user_id,
           _id: doc._id,
           request: {
             type: "GET",

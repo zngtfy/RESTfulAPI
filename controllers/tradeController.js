@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/tradeModel");
-const sl = "company trade_no submitted_on trade_date price amount value currency status _id";
+const sl = "company trade_no submitted_on trade_date price amount value currency status user_id _id";
 
 exports.list = (req, res, next) => {
   m.find().select(sl).populate("company", "name logo status").exec().then(docs => {
@@ -19,6 +19,7 @@ exports.list = (req, res, next) => {
           value: doc.value,
           currency: doc.currency,
           status: doc.status,
+          user_id: doc.user_id,
           _id: doc._id,
           request: {
             type: "GET",
@@ -49,7 +50,8 @@ exports.create = (req, res, next) => {
     amount: req.body.amount,
     value: req.body.value,
     currency: req.body.currency,
-    status: req.body.status
+    status: req.body.status,
+    user_id: req.body.userId
   });
 
   t.save().then(doc => {
@@ -65,6 +67,7 @@ exports.create = (req, res, next) => {
         value: doc.value,
         currency: doc.currency,
         status: doc.status,
+        user_id: doc.user_id,
         _id: doc._id,
         request: {
           type: "GET",
@@ -140,7 +143,8 @@ exports.delete = (req, res, next) => {
 
 exports.tradeHistory = (req, res, next) => {
   const cid = req.params.cid;
-  m.find({ company: { _id: cid } }).select(sl).populate("company", "name logo status").exec().then(docs => {
+  const uid = req.params.uid;
+  m.find({ company: { _id: cid }, user_id: uid }).select(sl).populate("company", "name logo status").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
@@ -154,6 +158,7 @@ exports.tradeHistory = (req, res, next) => {
           value: doc.value,
           currency: doc.currency,
           status: doc.status,
+          user_id: doc.user_id,
           _id: doc._id,
           request: {
             type: "GET",

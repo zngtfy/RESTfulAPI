@@ -13,7 +13,8 @@ const sc = mongoose.Schema({
     value: { type: Number, required: true },
     currency: { type: String, required: true },
     status: { type: String, required: true },
-    type: { type: String, required: true }
+    type: { type: String, required: true },
+    user_id: { type: String, required: true }
 });
 
 module.exports = mongoose.model("Order", sc);

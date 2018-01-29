@@ -12,7 +12,8 @@ const sc = mongoose.Schema({
     market_value: { type: Number, required: true },
     profit_loss: { type: Number, required: true },
     profit_loss_percent: { type: Number, required: true },
-    currency: { type: String, required: true }
+    currency: { type: String, required: true },
+    user_id: { type: String, required: true }
 });
 
 module.exports = mongoose.model("Asset", sc);

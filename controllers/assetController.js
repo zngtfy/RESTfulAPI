@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/assetModel");
-const sl = "ticker asset_name ave_traded_price last_price volume_held market_value profit_loss profit_loss_percent currency _id";
+const sl = "ticker asset_name ave_traded_price last_price volume_held market_value profit_loss profit_loss_percent currency user_id _id";
 
 exports.list = (req, res, next) => {
   m.find().select(sl).exec().then(docs => {
@@ -19,6 +19,7 @@ exports.list = (req, res, next) => {
           profit_loss: doc.profit_loss,
           profit_loss_percent: doc.profit_loss_percent,
           currency: doc.currency,
+          user_id: doc.user_id,
           _id: doc._id,
           request: {
             type: "GET",
@@ -49,7 +50,8 @@ exports.create = (req, res, next) => {
     market_value: req.body.marketValue,
     profit_loss: req.body.profitLoss,
     profit_loss_percent: req.body.profitLossPercent,
-    currency: req.body.currency
+    currency: req.body.currency,
+    user_id: req.body.userId
   });
 
   t.save().then(doc => {
@@ -65,6 +67,7 @@ exports.create = (req, res, next) => {
         profit_loss: doc.profit_loss,
         profit_loss_percent: doc.profit_loss_percent,
         currency: doc.currency,
+        user_id: doc.user_id,
         _id: doc._id,
         request: {
           type: "GET",
