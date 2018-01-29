@@ -5,7 +5,7 @@ const m = require("../models/captableModel");
 const sl = "company first_name last_name email status kyc_status noof_tokens currency avg_price initial_unit_price value submitted_on _id";
 
 exports.list = (req, res, next) => {
-  m.find().select(sl).populate("company", "name logo").exec().then(docs => {
+  m.find().select(sl).populate("company", "name logo status").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
@@ -90,7 +90,7 @@ exports.create = (req, res, next) => {
 exports.read = (req, res, next) => {
   const id = req.params.id;
 
-  m.findById(id).select(sl).populate("company", "name logo").exec().then(doc => {
+  m.findById(id).select(sl).populate("company", "name logo status").exec().then(doc => {
     if (doc) {
       res.status(200).json({
         data: doc,

@@ -7,7 +7,7 @@ const m = require("../models/userModel");
 const sl = "company first_name last_name email phone_no country_code status kyc_status _id";
 
 exports.list = (req, res, next) => {
-  m.find().select(sl).populate("company", "name logo").exec().then(docs => {
+  m.find().select(sl).populate("company", "name logo status").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
@@ -78,7 +78,7 @@ exports.create = (req, res, next) => {
 exports.read = (req, res, next) => {
   const id = req.params.id;
 
-  m.findById(id).select(sl).populate("company", "name logo").exec().then(doc => {
+  m.findById(id).select(sl).populate("company", "name logo status").exec().then(doc => {
     if (doc) {
       res.status(200).json({
         data: doc,
