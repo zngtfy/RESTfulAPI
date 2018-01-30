@@ -146,8 +146,8 @@ exports.delete = (req, res, next) => {
 
 exports.orderBookBuy = (req, res, next) => {
   const cid = req.params.cid;
-  const uid = req.params.uid;
-  m.find({ company: { _id: cid }, type: "BUY", user_id: uid }).select(sl).populate("company", "name logo status").exec().then(docs => {
+
+  m.find({ company: { _id: cid }, type: "BUY" }).select(sl).populate("company", "name logo status").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
@@ -184,8 +184,8 @@ exports.orderBookBuy = (req, res, next) => {
 
 exports.orderBookSell = (req, res, next) => {
   const cid = req.params.cid;
-  const uid = req.params.uid;
-  m.find({ company: { _id: cid }, type: "SEL", user_id: uid }).select(sl).populate("company", "name logo status").exec().then(docs => {
+
+  m.find({ company: { _id: cid }, type: "SEL" }).select(sl).populate("company", "name logo status").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {

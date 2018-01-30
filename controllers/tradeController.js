@@ -143,8 +143,8 @@ exports.delete = (req, res, next) => {
 
 exports.tradeHistory = (req, res, next) => {
   const cid = req.params.cid;
-  const uid = req.params.uid;
-  m.find({ company: { _id: cid }, user_id: uid }).select(sl).populate("company", "name logo status").exec().then(docs => {
+
+  m.find({ company: { _id: cid } }).select(sl).populate("company", "name logo status").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
