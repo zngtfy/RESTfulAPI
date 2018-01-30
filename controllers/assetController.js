@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const m = require("../models/assetModel");
-const sl = "ticker asset_name ave_traded_price last_price volume_held market_value profit_loss profit_loss_percent currency user_id _id";
+const sl = "ticker asset_name company_logo ave_traded_price last_price volume_held market_value profit_loss profit_loss_percent currency user_id _id";
 
 exports.list = (req, res, next) => {
   m.find().select(sl).exec().then(docs => {
@@ -12,6 +12,7 @@ exports.list = (req, res, next) => {
         return {
           ticker: doc.ticker,
           asset_name: doc.asset_name,
+          company_logo: doc.company_logo,
           ave_traded_price: doc.ave_traded_price,
           last_price: doc.last_price,
           volume_held: doc.volume_held,
@@ -44,6 +45,7 @@ exports.create = (req, res, next) => {
     _id: new mongoose.Types.ObjectId(),
     ticker: req.body.ticker,
     asset_name: req.body.assetName,
+    company_logo: req.body.company_logo,
     ave_traded_price: req.body.aveTradedPrice,
     last_price: req.body.lastPrice,
     volume_held: req.body.volumeHeld,
@@ -60,6 +62,7 @@ exports.create = (req, res, next) => {
       data: {
         ticker: doc.ticker,
         asset_name: doc.asset_name,
+        company_logo: doc.company_logo,
         ave_traded_price: doc.ave_traded_price,
         last_price: doc.last_price,
         volume_held: doc.volume_held,

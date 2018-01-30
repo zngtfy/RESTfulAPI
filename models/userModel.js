@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const sc = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     company: { type: mongoose.Schema.Types.ObjectId, ref: "Company", required: false },
-    first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
+    first_name: { type: String, required: false },
+    last_name: { type: String, required: false },
     email: {
         type: String,
         required: true,
@@ -14,8 +14,8 @@ const sc = mongoose.Schema({
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     },
     password: { type: String, required: false },
-    phone_no: { type: String, required: true },
-    country_code: { type: String, required: true },
+    phone_no: { type: String, required: false },
+    country_code: { type: String, required: false },
     status: { type: String, required: false },
     kyc_status: { type: String, required: false }
 });

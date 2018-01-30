@@ -4,13 +4,13 @@ const mongoose = require("mongoose");
 
 const sc = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    company_name: { type: String, required: true },
-    price: { type: Number, required: true },
-    amount: { type: Number, required: true },
-    value: { type: Number, required: true },
-    currency: { type: String, required: true },
-    status: { type: String, required: true },
-    submitted_on: { type: Date, required: true }
+    company_name: { type: String, required: false },
+    price: { type: Number, required: false },
+    amount: { type: Number, required: false },
+    value: { type: Number, required: false },
+    currency: { type: String, required: false },
+    status: { type: String, required: false },
+    submitted_on: { type: Date, required: false }
 });
 
 module.exports = mongoose.model("Tradehistory", sc);
