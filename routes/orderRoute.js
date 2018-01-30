@@ -14,5 +14,6 @@ router.delete("/:id", auth, ct.delete);
 
 router.get("/buy/:cid", auth, ct.orderBookBuy);
 router.get("/sell/:cid", auth, ct.orderBookSell);
+router.get("my/:uid", auth, ct.listByUid);
 
 module.exports = router;

@@ -12,4 +12,6 @@ router.get("/:id", auth, ct.read);
 router.patch("/:id", auth, ct.update);
 router.delete("/:id", auth, ct.delete);
 
+router.get("my/:uid", auth, ct.listByUid);
+
 module.exports = router;
