@@ -146,3 +146,18 @@ exports.delete = (req, res, next) => {
     res.status(500).json({ error: err });
   });
 };
+
+exports.checkEmail = (req, res, next) => {
+  const email = req.params.email;
+
+  m.find({ email: email }).select(sl).exec().then(docs => {
+    if (docs.length > 0) {
+      res.status(200).json(true);
+    } else {
+      res.status(200).json(false);
+    }
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};
