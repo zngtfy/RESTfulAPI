@@ -5,7 +5,7 @@ const m = require("../models/tradeModel");
 const sl = "company trade_no submitted_on trade_date price amount value currency status user_id _id";
 
 exports.list = (req, res, next) => {
-  m.find().select(sl).populate("company", "name logo status").exec().then(docs => {
+  m.find().select(sl).populate("company", "name logo status url").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
@@ -84,7 +84,7 @@ exports.create = (req, res, next) => {
 exports.read = (req, res, next) => {
   const id = req.params.id;
 
-  m.findById(id).select(sl).populate("company", "name logo status").exec().then(doc => {
+  m.findById(id).select(sl).populate("company", "name logo status url").exec().then(doc => {
     if (doc) {
       res.status(200).json({
         data: doc,
@@ -144,7 +144,7 @@ exports.delete = (req, res, next) => {
 exports.tradeHistory = (req, res, next) => {
   const cid = req.params.cid;
 
-  m.find({ company: { _id: cid } }).select(sl).populate("company", "name logo status").exec().then(docs => {
+  m.find({ company: { _id: cid } }).select(sl).populate("company", "name logo status url").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
@@ -180,7 +180,7 @@ exports.tradeHistory = (req, res, next) => {
 
 exports.listByUid = (req, res, next) => {
   const uid = req.params.uid;
-  m.find({ user_id: uid }).select(sl).populate("company", "name logo status").exec().then(docs => {
+  m.find({ user_id: uid }).select(sl).populate("company", "name logo status url").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {

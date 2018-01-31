@@ -5,7 +5,7 @@ const m = require("../models/orderModel");
 const sl = "company order_no ordered_on expires_on price amount value currency status type user_id _id";
 
 exports.list = (req, res, next) => {
-  m.find().select(sl).populate("company", "name logo status").exec().then(docs => {
+  m.find().select(sl).populate("company", "name logo status url").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
@@ -87,7 +87,7 @@ exports.create = (req, res, next) => {
 exports.read = (req, res, next) => {
   const id = req.params.id;
 
-  m.findById(id).select(sl).populate("company", "name logo status").exec().then(doc => {
+  m.findById(id).select(sl).populate("company", "name logo status url").exec().then(doc => {
     if (doc) {
       res.status(200).json({
         data: doc,
@@ -147,7 +147,7 @@ exports.delete = (req, res, next) => {
 exports.orderBookBuy = (req, res, next) => {
   const cid = req.params.cid;
 
-  m.find({ company: { _id: cid }, type: "BUY" }).select(sl).populate("company", "name logo status").exec().then(docs => {
+  m.find({ company: { _id: cid }, type: "BUY" }).select(sl).populate("company", "name logo status url").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
@@ -185,7 +185,7 @@ exports.orderBookBuy = (req, res, next) => {
 exports.orderBookSell = (req, res, next) => {
   const cid = req.params.cid;
 
-  m.find({ company: { _id: cid }, type: "SEL" }).select(sl).populate("company", "name logo status").exec().then(docs => {
+  m.find({ company: { _id: cid }, type: "SEL" }).select(sl).populate("company", "name logo status url").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
@@ -222,7 +222,7 @@ exports.orderBookSell = (req, res, next) => {
 
 exports.listByUid = (req, res, next) => {
   const uid = req.params.uid;
-  m.find({ user_id: uid }).select(sl).populate("company", "name logo status").exec().then(docs => {
+  m.find({ user_id: uid }).select(sl).populate("company", "name logo status url").exec().then(docs => {
     const response = {
       count: docs.length,
       data: docs.map(doc => {
