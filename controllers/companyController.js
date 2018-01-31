@@ -128,3 +128,35 @@ exports.delete = (req, res, next) => {
     res.status(500).json({ error: err });
   });
 };
+
+exports.search = (req, res, next) => {
+  const keyword = req.params.keyword;
+  m.find({ name: keyword }).select(sl).exec().then(docs => {
+    const response = {
+      count: docs.length,
+      data: docs.map(doc => {
+        return {
+          name: doc.name,
+          logo: doc.logo,
+          currency: doc.currency,
+          status: doc.status,
+          note: doc.note,
+          url: doc.url,
+          _id: doc._id,
+          request: {
+            type: "GET",
+            url: process.env.BASE_URL + "companies/" + doc._id
+          }
+        };
+      })
+    };
+    if (docs.length >= 0) {
+      res.status(200).json(response);
+    } else {
+      res.status(404).json({ message: "No entries found" });
+    }
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+};

@@ -49,4 +49,6 @@ router.get("/:id", auth, ct.read);
 router.patch("/:id", auth, ct.update);
 router.delete("/:id", auth, ct.delete);
 
+router.get("/search/:keyword", auth, ct.search);
+
 module.exports = router;
