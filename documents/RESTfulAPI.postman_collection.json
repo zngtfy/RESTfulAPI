@@ -1,133 +1,133 @@
 {
-	"info": {
-		"_postman_id": "4e1e5ac6-2648-4bb3-96ee-5b9a538d3749",
-		"name": "RESTfulAPI",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "user",
-			"item": [
-				{
-					"name": "signup",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Toan\",\r\n    \"lastName\": \"Nguyen\",\r\n    \"email\": \"nvt87x@gmail.com\",\r\n    \"password\": \"Qq12345!\",\r\n    \"phoneNo\": \"+84345515010\",\r\n    \"countryCode\": \"+84\",\r\n    \"company\": \"SKG\",\r\n    \"termsConditions\": true\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/user/signup",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"signup"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "e232d647-2e2c-4bd1-b972-a324200510fc",
-								"exec": [
-									"try {\r",
-									"    if (pm.environment.get(\"email\") === \"\")\r",
-									"    {\r",
-									"        console.log(\"You need to enter *email* environment variable first.\");\r",
-									"    }\r",
-									"    if (pm.environment.get(\"password\") === \"\")\r",
-									"    {\r",
-									"        console.log(\"You need to enter *password* environment variable first.\");\r",
-									"    }\r",
-									"    else\r",
-									"    {\r",
-									"        var json = JSON.parse(responseBody);\r",
-									"        postman.setEnvironmentVariable(\"AccessToken\", json.token);\r",
-									"    }\r",
-									"}\r",
-									"catch (e) {\r",
-									"    console.log(e);\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/user/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{AccessToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/user/5e9986425d3f680e14cf1875",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"5e9986425d3f680e14cf1875"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		}
-	],
-	"protocolProfileBehavior": {}
+    "info": {
+        "_postman_id": "4e1e5ac6-2648-4bb3-96ee-5b9a538d3749",
+        "name": "RESTfulAPI",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "user",
+            "item": [
+                {
+                    "name": "signup",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"firstName\": \"Toan\",\r\n    \"lastName\": \"Nguyen\",\r\n    \"email\": \"nvt87x@gmail.com\",\r\n    \"password\": \"Qq12345!\",\r\n    \"phoneNo\": \"+84345515010\",\r\n    \"countryCode\": \"+84\",\r\n    \"company\": \"SKG\",\r\n    \"termsConditions\": true\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/user/signup",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "user",
+                                "signup"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "login",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "e232d647-2e2c-4bd1-b972-a324200510fc",
+                                "exec": [
+                                    "try {\r",
+                                    "    if (pm.environment.get(\"email\") === \"\")\r",
+                                    "    {\r",
+                                    "        console.log(\"You need to enter *email* environment variable first.\");\r",
+                                    "    }\r",
+                                    "    if (pm.environment.get(\"password\") === \"\")\r",
+                                    "    {\r",
+                                    "        console.log(\"You need to enter *password* environment variable first.\");\r",
+                                    "    }\r",
+                                    "    else\r",
+                                    "    {\r",
+                                    "        var json = JSON.parse(responseBody);\r",
+                                    "        postman.setEnvironmentVariable(\"AccessToken\", json.token);\r",
+                                    "    }\r",
+                                    "}\r",
+                                    "catch (e) {\r",
+                                    "    console.log(e);\r",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/user/login",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "user",
+                                "login"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{AccessToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/user/5e9986425d3f680e14cf1875",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "user",
+                                "5e9986425d3f680e14cf1875"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "protocolProfileBehavior": {}
+        }
+    ],
+    "protocolProfileBehavior": {}
 }
