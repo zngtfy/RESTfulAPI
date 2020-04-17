@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "4e1e5ac6-2648-4bb3-96ee-5b9a538d3749",
+		"name": "RESTfulAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Toan\",\r\n    \"lastName\": \"Nguyen\",\r\n    \"email\": \"nvt87x@gmail.com\",\r\n    \"password\": \"Qq12345!\",\r\n    \"phoneNo\": \"+84345515010\",\r\n    \"countryCode\": \"+84\",\r\n    \"company\": \"SKG\",\r\n    \"termsConditions\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"nvt87x@gmail.com\",\r\n    \"password\": \"Qq12345!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
