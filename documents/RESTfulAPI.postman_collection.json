@@ -127,6 +127,80 @@
                 }
             ],
             "protocolProfileBehavior": {}
+        },
+        {
+            "name": "products",
+            "item": [
+                {
+                    "name": "Get list",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/products",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "products"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Post upload image",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{AccessToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Phi ngua",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "price",
+                                    "value": "101",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "productImage",
+                                    "type": "file",
+                                    "src": "/E:/CTY/YexSync/RESTfulAPI/documents/fi-ngua.gif"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/products",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "products"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "protocolProfileBehavior": {}
         }
     ],
     "protocolProfileBehavior": {}
