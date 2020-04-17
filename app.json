@@ -1,15 +1,8 @@
 {
-  "name": "RESTfulAPI",
-  "scripts": {
-  },
-  "env": {
-  },
-  "formation": {
-  },
-  "addons": [
-
-  ],
-  "buildpacks": [
-
-  ]
+    "name": "RESTfulAPI",
+    "scripts": {},
+    "env": {},
+    "formation": {},
+    "addons": [],
+    "buildpacks": []
 }
