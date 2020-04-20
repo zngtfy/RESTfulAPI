@@ -14,8 +14,10 @@ const userRoutes = require("./routes/userRoute");
 const dashboardRoutes = require("./routes/dashboardRoute");
 const mockupRoutes = require("./routes/mockupRoute");
 
-const cnn = "mongodb+srv://node-shop:" + process.env.MONGO_ATLAS_PW
-    + "@node-rest-shop-238ix.mongodb.net/test?retryWrites=true&w=majority";
+//const cnn = "mongodb+srv://node-shop:" + process.env.MONGO_ATLAS_PW + "@node-rest-shop-238ix.mongodb.net/test?retryWrites=true&w=majority";
+//const cnn = "mongodb://writer:" + process.env.MONGO_TFY_PW + "@tfy.ddns.net:17017/?authSource=test";
+const cnn = "mongodb://writer:" + process.env.MONGO_TFY_PW + "@tfy.ddns.net:17017/test?retryWrites=true&w=majority";
+
 mongoose.Promise = global.Promise;
 mongoose.connect(cnn);
 
